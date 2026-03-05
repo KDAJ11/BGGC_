@@ -1009,22 +1009,6 @@ function openProductModal(productIndex) {
   var infoEl = document.getElementById('productModalInfo');
   infoEl.innerHTML = infoHTML;
 
-  // Event delegation for variant buttons + checkout btn
-  infoEl.addEventListener('click', function(e) {
-    var vBtn = e.target.closest('.variant-btn');
-    if (vBtn && !vBtn.disabled) {
-      var pi = parseInt(vBtn.getAttribute('data-product-index'), 10);
-      var vi = parseInt(vBtn.getAttribute('data-variant-index'), 10);
-      handleVariantClick(pi, vi, vBtn);
-      return;
-    }
-    var cbtn = e.target.closest('#checkout-btn');
-    if (cbtn && !cbtn.disabled) {
-      var pi2 = parseInt(cbtn.getAttribute('data-product-index'), 10);
-      initiateCheckout(pi2);
-    }
-  });
-
   document.getElementById('productModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1101,6 +1085,27 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// Single permanent listener — wrapped in DOMContentLoaded so elements exist
+document.addEventListener('DOMContentLoaded', function() {
+  var infoPanel = document.getElementById('productModalInfo');
+  if (infoPanel) {
+    infoPanel.addEventListener('click', function(e) {
+      var vBtn = e.target.closest('.variant-btn');
+      if (vBtn && !vBtn.disabled) {
+        var pi = parseInt(vBtn.getAttribute('data-product-index'), 10);
+        var vi = parseInt(vBtn.getAttribute('data-variant-index'), 10);
+        handleVariantClick(pi, vi, vBtn);
+        return;
+      }
+      var cbtn = e.target.closest('#checkout-btn');
+      if (cbtn && !cbtn.disabled) {
+        var pi2 = parseInt(cbtn.getAttribute('data-product-index'), 10);
+        initiateCheckout(pi2);
+      }
+    });
+  }
+});
+
 </script>
 
 <!-- SHOP OVERLAY -->
@@ -1116,4 +1121,12 @@ document.addEventListener('keydown', function(e) {
   </div>
 </div>
 <!-- PRODUCT MODAL -->
-<div class="product-modal" id="productModal" oncli
+<div class="product-modal" id="productModal" onclick="handleModalClick(event)">
+  <div class="product-modal-inner" id="productModalInner">
+    <button class="product-modal-close" onclick="closeProductModal()">&#x2715;</button>
+    <div id="product-modal-img-wrap"></div>
+    <div class="product-modal-info" id="productModalInfo"></div>
+  </div>
+</div>
+</body>
+</html>
