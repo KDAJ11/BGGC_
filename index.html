@@ -1104,12 +1104,25 @@ function fetchCollections() {
   });
 }
 
+// Find the real Shopify handle for the women's "Accessories" collection.
+// shopCollections is populated after the first API call; until then we fall back to 'accessories'.
+function getWomenAccessoriesHandle() {
+  for (var i = 0; i < shopCollections.length; i++) {
+    var c = shopCollections[i];
+    if (c.handle !== 'men-accessories' && c.title.toLowerCase().indexOf('accessor') !== -1) {
+      return c.handle;
+    }
+  }
+  return 'accessories';
+}
+
 function fetchProductsFiltered() {
   var sortStr = getSortParams(activeSort, !!activeCollection);
   var q;
   if (activeCollection === 'accessories' && accessoriesSubFilter === null) {
     // Dual query: fetch Women's accessories and Men's accessories in parallel, then merge
-    var q1 = '{collection(handle:"accessories"){products(first:50,sortKey:CREATED,reverse:true){edges{node{' + PRODUCT_FIELDS + '}}}}}';
+    var wHandle = getWomenAccessoriesHandle();
+    var q1 = '{collection(handle:"' + wHandle + '"){products(first:50,sortKey:CREATED,reverse:true){edges{node{' + PRODUCT_FIELDS + '}}}}}';
     var q2 = '{collection(handle:"men-accessories"){products(first:50,sortKey:CREATED,reverse:true){edges{node{' + PRODUCT_FIELDS + '}}}}}';
     return Promise.all([shopifyQuery(q1), shopifyQuery(q2)]).then(function(results) {
       var p1 = (results[0].data && results[0].data.collection)
@@ -1124,6 +1137,14 @@ function fetchProductsFiltered() {
       });
       return sortProductsArray(merged, activeSort);
     });
+  } else if (activeCollection === 'accessories' && accessoriesSubFilter === 'women') {
+    // Women's accessories only → query the "Accessories" collection by its real handle
+    q = '{collection(handle:"' + getWomenAccessoriesHandle() + '"){products(first:50,' + sortStr + '){edges{node{' + PRODUCT_FIELDS + '}}}}}';
+    return shopifyQuery(q).then(function(d) {
+      var col = d.data && d.data.collection;
+      if (!col) return [];
+      return col.products.edges.map(function(e) { return e.node; });
+    });
   } else if (activeCollection === 'accessories' && accessoriesSubFilter === 'men') {
     // Men's accessories only → query the men-accessories collection
     q = '{collection(handle:"men-accessories"){products(first:50,' + sortStr + '){edges{node{' + PRODUCT_FIELDS + '}}}}}';
@@ -1133,7 +1154,7 @@ function fetchProductsFiltered() {
       return col.products.edges.map(function(e) { return e.node; });
     });
   } else if (activeCollection) {
-    // All other categories (including accessories+women sub-filter which keeps handle 'accessories')
+    // All other categories
     q = '{collection(handle:"' + activeCollection + '"){products(first:50,' + sortStr + '){edges{node{' + PRODUCT_FIELDS + '}}}}}';
     return shopifyQuery(q).then(function(d) {
       var col = d.data && d.data.collection;
