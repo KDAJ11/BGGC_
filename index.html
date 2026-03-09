@@ -532,6 +532,14 @@ footer { background: var(--charcoal); color: var(--cream); padding: 68px 60px 34
 .category-card-label{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:rgba(10,5,20,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;font-weight:700;color:#fff;text-align:center;text-transform:uppercase}
 .category-card.active .category-card-label{background:rgba(233,30,140,.7)}
 
+/* Accessories sub-filter tabs */
+.accessories-sub-filter{display:flex;gap:8px;margin-bottom:12px;align-items:center}
+.accessories-sub-filter-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;color:rgba(28,18,8,.45);margin-right:4px;white-space:nowrap}
+.acc-sub-btn{padding:7px 18px;border:1.5px solid rgba(139,34,120,.3);border-radius:50px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;font-weight:600;color:rgba(28,18,8,.6);background:#fff;cursor:pointer;transition:all .2s}
+.acc-sub-btn:hover{border-color:#E91E8C;color:#E91E8C}
+.acc-sub-btn.active{background:#E91E8C;border-color:#E91E8C;color:#fff}
+@media(max-width:640px){.accessories-sub-filter{flex-wrap:wrap}}
+
 /* Filter / Sort Bar */
 .shop-filter-bar{display:flex;gap:10px;align-items:center;padding-bottom:16px;flex-wrap:wrap}
 .shop-search-wrap{position:relative;flex:1;min-width:160px}
@@ -1028,6 +1036,7 @@ var activeCollection  = null;   // null = show all
 var activeSort        = 'NEW_ARRIVAL';
 var searchQuery       = '';
 var searchDebounce    = null;
+var accessoriesSubFilter = null; // null = all, 'women' = accessories only, 'men' = men-accessories only
 
 // Integer-keyed map so we never embed IDs into inline HTML
 var productMap = {};
@@ -1063,7 +1072,27 @@ function getSortParams(sortVal, isCollection) {
   return isCollection ? 'sortKey:CREATED,reverse:true' : 'sortKey:CREATED_AT,reverse:true';
 }
 
-var PRODUCT_FIELDS = 'id title description'
+// Client-side sort for merged product arrays (used after deduplication)
+function sortProductsArray(products, sortVal) {
+  var sorted = products.slice();
+  if (sortVal === 'PRICE_ASC') {
+    sorted.sort(function(a, b) {
+      return parseFloat(a.priceRange.minVariantPrice.amount) - parseFloat(b.priceRange.minVariantPrice.amount);
+    });
+  } else if (sortVal === 'PRICE_DESC') {
+    sorted.sort(function(a, b) {
+      return parseFloat(b.priceRange.minVariantPrice.amount) - parseFloat(a.priceRange.minVariantPrice.amount);
+    });
+  } else if (sortVal === 'TITLE') {
+    sorted.sort(function(a, b) { return a.title.localeCompare(b.title); });
+  } else {
+    // NEW_ARRIVAL and BEST_SELLING: sort by createdAt descending
+    sorted.sort(function(a, b) { return new Date(b.createdAt) - new Date(a.createdAt); });
+  }
+  return sorted;
+}
+
+var PRODUCT_FIELDS = 'id title description createdAt'
   + ' priceRange{minVariantPrice{amount currencyCode}}'
   + ' images(first:1){edges{node{url}}}'
   + ' variants(first:10){edges{node{id title price{amount currencyCode}availableForSale}}}';
@@ -1078,7 +1107,33 @@ function fetchCollections() {
 function fetchProductsFiltered() {
   var sortStr = getSortParams(activeSort, !!activeCollection);
   var q;
-  if (activeCollection) {
+  if (activeCollection === 'accessories' && accessoriesSubFilter === null) {
+    // Dual query: fetch Women's accessories and Men's accessories in parallel, then merge
+    var q1 = '{collection(handle:"accessories"){products(first:50,sortKey:CREATED,reverse:true){edges{node{' + PRODUCT_FIELDS + '}}}}}';
+    var q2 = '{collection(handle:"men-accessories"){products(first:50,sortKey:CREATED,reverse:true){edges{node{' + PRODUCT_FIELDS + '}}}}}';
+    return Promise.all([shopifyQuery(q1), shopifyQuery(q2)]).then(function(results) {
+      var p1 = (results[0].data && results[0].data.collection)
+        ? results[0].data.collection.products.edges.map(function(e) { return e.node; }) : [];
+      var p2 = (results[1].data && results[1].data.collection)
+        ? results[1].data.collection.products.edges.map(function(e) { return e.node; }) : [];
+      // Merge and deduplicate by product ID
+      var seen = {};
+      var merged = [];
+      p1.concat(p2).forEach(function(p) {
+        if (!seen[p.id]) { seen[p.id] = true; merged.push(p); }
+      });
+      return sortProductsArray(merged, activeSort);
+    });
+  } else if (activeCollection === 'accessories' && accessoriesSubFilter === 'men') {
+    // Men's accessories only → query the men-accessories collection
+    q = '{collection(handle:"men-accessories"){products(first:50,' + sortStr + '){edges{node{' + PRODUCT_FIELDS + '}}}}}';
+    return shopifyQuery(q).then(function(d) {
+      var col = d.data && d.data.collection;
+      if (!col) return [];
+      return col.products.edges.map(function(e) { return e.node; });
+    });
+  } else if (activeCollection) {
+    // All other categories (including accessories+women sub-filter which keeps handle 'accessories')
     q = '{collection(handle:"' + activeCollection + '"){products(first:50,' + sortStr + '){edges{node{' + PRODUCT_FIELDS + '}}}}}';
     return shopifyQuery(q).then(function(d) {
       var col = d.data && d.data.collection;
@@ -1153,6 +1208,21 @@ function renderCategoryCards() {
   return html;
 }
 
+// ── Render Women / Men sub-filter tabs (visible only when Accessories is active) ──
+function renderAccessoriesSubFilter() {
+  if (activeCollection !== 'accessories') return '';
+  var all = (accessoriesSubFilter === null);
+  var women = (accessoriesSubFilter === 'women');
+  var men   = (accessoriesSubFilter === 'men');
+  var html = '<div class="accessories-sub-filter">';
+  html += '<span class="accessories-sub-filter-label">FILTER:</span>';
+  html += '<button class="acc-sub-btn' + (all   ? ' active' : '') + '" data-acc-filter="all">All</button>';
+  html += '<button class="acc-sub-btn' + (women ? ' active' : '') + '" data-acc-filter="women">Women</button>';
+  html += '<button class="acc-sub-btn' + (men   ? ' active' : '') + '" data-acc-filter="men">Men</button>';
+  html += '</div>';
+  return html;
+}
+
 // ── Render filter/sort bar ──
 function renderFilterBar() {
   var colOptions = '<option value="">All Category</option>';
@@ -1193,7 +1263,7 @@ function renderFilterBar() {
 function renderShopUI() {
   var controlsEl = document.getElementById('shopDrawerControls');
   if (controlsEl) {
-    controlsEl.innerHTML = renderCategoryCards() + renderFilterBar();
+    controlsEl.innerHTML = renderCategoryCards() + renderAccessoriesSubFilter() + renderFilterBar();
     attachControlListeners();
   }
   renderProductGrid();
@@ -1208,7 +1278,17 @@ function attachControlListeners() {
       if (e.target.classList.contains('category-card-heart')) return;
       var handle = card.getAttribute('data-handle');
       activeCollection = (activeCollection === handle) ? null : handle;
+      if (activeCollection !== 'accessories') accessoriesSubFilter = null;
       searchQuery = '';
+      applyFilters();
+    });
+  });
+
+  // Accessories sub-filter tabs (Women / Men)
+  document.querySelectorAll('.acc-sub-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var filter = btn.getAttribute('data-acc-filter');
+      accessoriesSubFilter = (filter === 'all') ? null : filter;
       applyFilters();
     });
   });
@@ -1217,6 +1297,7 @@ function attachControlListeners() {
   if (catSel) {
     catSel.addEventListener('change', function() {
       activeCollection = catSel.value || null;
+      if (activeCollection !== 'accessories') accessoriesSubFilter = null;
       searchQuery = '';
       applyFilters();
     });
@@ -1247,7 +1328,7 @@ function applyFilters() {
   // Re-render controls to reflect updated active states
   var controlsEl = document.getElementById('shopDrawerControls');
   if (controlsEl) {
-    controlsEl.innerHTML = renderCategoryCards() + renderFilterBar();
+    controlsEl.innerHTML = renderCategoryCards() + renderAccessoriesSubFilter() + renderFilterBar();
     attachControlListeners();
     // Restore search input focus/value if user was typing
     var si = document.getElementById('shopSearchInput');
