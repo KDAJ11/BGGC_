@@ -518,6 +518,43 @@ footer { background: var(--charcoal); color: var(--cream); padding: 68px 60px 34
 .btn-checkout-note{font-size:11px;text-align:center;color:rgba(28,18,8,.4);font-style:italic}
 @media(max-width:640px){.product-modal-inner{grid-template-columns:1fr}.shop-drawer-body{padding:20px}.product-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
 
+/* ══ SHOP DRAWER CONTROLS ══ */
+.shop-drawer-controls{flex-shrink:0;border-bottom:1px solid rgba(139,34,120,.15);background:var(--cream);padding:20px 36px 0}
+
+/* Category Cards */
+.category-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.category-card{position:relative;height:140px;border-radius:14px;overflow:hidden;cursor:pointer;background:linear-gradient(135deg,#F5DEFF,#C084CF);background-size:cover;background-position:center;transition:transform .25s,box-shadow .25s;border:2px solid transparent;user-select:none}
+.category-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(139,34,120,.25)}
+.category-card.active{border-color:#E91E8C;box-shadow:0 0 0 3px rgba(233,30,140,.25)}
+.category-card-heart{position:absolute;top:10px;right:10px;width:28px;height:28px;background:rgba(255,255,255,.85);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#E91E8C;transition:all .2s;z-index:2}
+.category-card-heart:hover{background:#fff;transform:scale(1.15)}
+.category-card-emoji{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;padding-bottom:32px}
+.category-card-label{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:rgba(10,5,20,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;font-weight:700;color:#fff;text-align:center;text-transform:uppercase}
+.category-card.active .category-card-label{background:rgba(233,30,140,.7)}
+
+/* Filter / Sort Bar */
+.shop-filter-bar{display:flex;gap:10px;align-items:center;padding-bottom:16px;flex-wrap:wrap}
+.shop-search-wrap{position:relative;flex:1;min-width:160px}
+.shop-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:rgba(28,18,8,.4);pointer-events:none;flex-shrink:0}
+.shop-search-input{width:100%;padding:10px 14px 10px 36px;border:1.5px solid rgba(139,34,120,.25);border-radius:50px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--charcoal);background:#fff;outline:none;transition:border-color .2s;box-sizing:border-box}
+.shop-search-input:focus{border-color:#E91E8C}
+.shop-search-input::placeholder{color:rgba(28,18,8,.35)}
+.shop-filter-select{padding:10px 32px 10px 14px;border:1.5px solid rgba(139,34,120,.25);border-radius:50px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--charcoal);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E91E8C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;outline:none;cursor:pointer;transition:border-color .2s;appearance:none;-webkit-appearance:none}
+.shop-filter-select:focus,.shop-filter-select:hover{border-color:#E91E8C}
+
+@media(max-width:640px){
+  .shop-drawer-controls{padding:16px 20px 0}
+  .category-cards{grid-template-columns:repeat(2,1fr)}
+  .category-card{height:120px}
+  .shop-filter-bar{flex-direction:column;align-items:stretch}
+  .shop-search-wrap{min-width:unset}
+}
+@media(max-width:480px){
+  .category-card{height:100px}
+  .category-card-label{font-size:9px;letter-spacing:1px}
+  .category-card-emoji{font-size:34px}
+}
+
 </style>
 </head>
 <body>
@@ -983,12 +1020,24 @@ function handleInquiry(btn) {
 var SHOPIFY_STORE = 'yguwat-dp.myshopify.com';
 var SHOPIFY_TOKEN = 'b05d542f7d13e3b60ff05185d31ec1dc';
 var SHOPIFY_URL   = 'https://' + SHOPIFY_STORE + '/api/2026-01/graphql.json';
-var shopProducts  = [];
-var shopLoaded    = false;
+var shopProducts    = [];
+var shopCollections = [];
+var shopLoaded      = false;
 var selectedVariant = null;
+var activeCollection  = null;   // null = show all
+var activeSort        = 'NEW_ARRIVAL';
+var searchQuery       = '';
+var searchDebounce    = null;
 
-// Use a Map so we can look up products by id without string-in-HTML hacks
+// Integer-keyed map so we never embed IDs into inline HTML
 var productMap = {};
+
+var CATEGORY_FEATURED = [
+  { label: 'Women',       handle: 'women',       emoji: '&#128275;', grad: 'linear-gradient(135deg,#FDDDE6,#E8A0C5)' },
+  { label: 'Men',         handle: 'men',         emoji: '&#128084;', grad: 'linear-gradient(135deg,#D0E8FF,#7BAFD4)' },
+  { label: 'Children',    handle: 'kids',        emoji: '&#127877;', grad: 'linear-gradient(135deg,#FFFACD,#FFD580)' },
+  { label: 'Accessories', handle: 'accessories', emoji: '&#128141;', grad: 'linear-gradient(135deg,#E8F5E9,#80CBC4)' }
+];
 
 function shopifyQuery(q) {
   return fetch(SHOPIFY_URL, {
@@ -1004,14 +1053,50 @@ function shopifyQuery(q) {
   });
 }
 
-function fetchProducts() {
-  var q = '{products(first:50){edges{node{id title description'
-    + ' priceRange{minVariantPrice{amount currencyCode}}'
-    + ' images(first:1){edges{node{url}}}'
-    + ' variants(first:10){edges{node{id title price{amount currencyCode}availableForSale}}}}}}}';
+// Returns the GraphQL sort string appropriate for the context
+function getSortParams(sortVal, isCollection) {
+  if (sortVal === 'PRICE_ASC')    return 'sortKey:PRICE,reverse:false';
+  if (sortVal === 'PRICE_DESC')   return 'sortKey:PRICE,reverse:true';
+  if (sortVal === 'BEST_SELLING') return 'sortKey:BEST_SELLING';
+  if (sortVal === 'TITLE')        return 'sortKey:TITLE';
+  // NEW_ARRIVAL default
+  return isCollection ? 'sortKey:CREATED,reverse:true' : 'sortKey:CREATED_AT,reverse:true';
+}
+
+var PRODUCT_FIELDS = 'id title description'
+  + ' priceRange{minVariantPrice{amount currencyCode}}'
+  + ' images(first:1){edges{node{url}}}'
+  + ' variants(first:10){edges{node{id title price{amount currencyCode}availableForSale}}}';
+
+function fetchCollections() {
+  var q = '{collections(first:30){edges{node{id title handle image{url}}}}}';
   return shopifyQuery(q).then(function(d) {
-    return d.data.products.edges.map(function(e) { return e.node; });
+    return d.data.collections.edges.map(function(e) { return e.node; });
   });
+}
+
+function fetchProductsFiltered() {
+  var sortStr = getSortParams(activeSort, !!activeCollection);
+  var q;
+  if (activeCollection) {
+    q = '{collection(handle:"' + activeCollection + '"){products(first:50,' + sortStr + '){edges{node{' + PRODUCT_FIELDS + '}}}}}';
+    return shopifyQuery(q).then(function(d) {
+      var col = d.data && d.data.collection;
+      if (!col) return [];
+      return col.products.edges.map(function(e) { return e.node; });
+    });
+  } else if (searchQuery) {
+    var safe = searchQuery.replace(/"/g, '');
+    q = '{products(first:50,' + sortStr + ',query:"' + safe + '"){edges{node{' + PRODUCT_FIELDS + '}}}}';
+    return shopifyQuery(q).then(function(d) {
+      return d.data.products.edges.map(function(e) { return e.node; });
+    });
+  } else {
+    q = '{products(first:50,' + sortStr + '){edges{node{' + PRODUCT_FIELDS + '}}}}';
+    return shopifyQuery(q).then(function(d) {
+      return d.data.products.edges.map(function(e) { return e.node; });
+    });
+  }
 }
 
 function openShopDrawer() {
@@ -1019,16 +1104,14 @@ function openShopDrawer() {
   document.getElementById('shopDrawer').classList.add('open');
   document.body.style.overflow = 'hidden';
   if (shopLoaded) return;
-  fetchProducts()
-    .then(function(products) {
-      shopProducts = products;
-      // Build lookup map using index (safe integer key, no quote issues)
+  Promise.all([fetchCollections(), fetchProductsFiltered()])
+    .then(function(results) {
+      shopCollections = results[0];
+      shopProducts    = results[1];
       productMap = {};
-      for (var i = 0; i < products.length; i++) {
-        productMap[i] = products[i];
-      }
+      for (var i = 0; i < shopProducts.length; i++) { productMap[i] = shopProducts[i]; }
       shopLoaded = true;
-      renderProductGrid();
+      renderShopUI();
     })
     .catch(function(err) {
       document.getElementById('shopDrawerBody').innerHTML =
@@ -1045,19 +1128,164 @@ function closeShopDrawer() {
   }
 }
 
+// ── Render category browse cards ──
+function renderCategoryCards() {
+  var html = '<div class="category-cards">';
+  for (var i = 0; i < CATEGORY_FEATURED.length; i++) {
+    var cat = CATEGORY_FEATURED[i];
+    var col = null;
+    for (var j = 0; j < shopCollections.length; j++) {
+      if (shopCollections[j].handle === cat.handle) { col = shopCollections[j]; break; }
+    }
+    var bgStyle = (col && col.image)
+      ? 'background-image:url(' + col.image.url + ');background-size:cover;background-position:center'
+      : 'background:' + cat.grad;
+    var isActive = activeCollection === cat.handle;
+    html += '<div class="category-card' + (isActive ? ' active' : '') + '" data-handle="' + cat.handle + '" style="' + bgStyle + '">';
+    html += '<div class="category-card-heart">&#9825;</div>';
+    if (!col || !col.image) {
+      html += '<div class="category-card-emoji">' + cat.emoji + '</div>';
+    }
+    html += '<div class="category-card-label">' + cat.label + '</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+// ── Render filter/sort bar ──
+function renderFilterBar() {
+  var colOptions = '<option value="">All Category</option>';
+  for (var i = 0; i < shopCollections.length; i++) {
+    var c = shopCollections[i];
+    var sel = activeCollection === c.handle ? ' selected' : '';
+    colOptions += '<option value="' + c.handle + '"' + sel + '>' + c.title + '</option>';
+  }
+  var sorts = [
+    { val: 'NEW_ARRIVAL', label: 'New Arrival' },
+    { val: 'PRICE_ASC',   label: 'Price: Low to High' },
+    { val: 'PRICE_DESC',  label: 'Price: High to Low' },
+    { val: 'BEST_SELLING',label: 'Best Selling' },
+    { val: 'TITLE',       label: 'A\u2013Z' }
+  ];
+  var sortOptions = '';
+  for (var j = 0; j < sorts.length; j++) {
+    var s = sorts[j];
+    var sel2 = activeSort === s.val ? ' selected' : '';
+    sortOptions += '<option value="' + s.val + '"' + sel2 + '>' + s.label + '</option>';
+  }
+  var safeSearch = searchQuery.replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  var html = '<div class="shop-filter-bar">';
+  html += '<div class="shop-search-wrap">';
+  html += '<svg class="shop-search-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        + '<circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/>'
+        + '<line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>'
+        + '</svg>';
+  html += '<input class="shop-search-input" id="shopSearchInput" type="text" placeholder="Search here" value="' + safeSearch + '">';
+  html += '</div>';
+  html += '<select class="shop-filter-select" id="categorySelect">' + colOptions + '</select>';
+  html += '<select class="shop-filter-select" id="sortSelect">' + sortOptions + '</select>';
+  html += '</div>';
+  return html;
+}
+
+// ── Render the full controls + product grid ──
+function renderShopUI() {
+  var controlsEl = document.getElementById('shopDrawerControls');
+  if (controlsEl) {
+    controlsEl.innerHTML = renderCategoryCards() + renderFilterBar();
+    attachControlListeners();
+  }
+  renderProductGrid();
+}
+
+function attachControlListeners() {
+  // Category card clicks — toggle selection
+  var cards = document.querySelectorAll('.category-card');
+  cards.forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      // Ignore heart icon clicks (purely decorative)
+      if (e.target.classList.contains('category-card-heart')) return;
+      var handle = card.getAttribute('data-handle');
+      activeCollection = (activeCollection === handle) ? null : handle;
+      searchQuery = '';
+      applyFilters();
+    });
+  });
+
+  var catSel = document.getElementById('categorySelect');
+  if (catSel) {
+    catSel.addEventListener('change', function() {
+      activeCollection = catSel.value || null;
+      searchQuery = '';
+      applyFilters();
+    });
+  }
+
+  var sortSel = document.getElementById('sortSelect');
+  if (sortSel) {
+    sortSel.addEventListener('change', function() {
+      activeSort = sortSel.value;
+      applyFilters();
+    });
+  }
+
+  var searchInput = document.getElementById('shopSearchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(function() {
+        searchQuery = searchInput.value.trim();
+        if (searchQuery) activeCollection = null;
+        applyFilters();
+      }, 380);
+    });
+  }
+}
+
+function applyFilters() {
+  // Re-render controls to reflect updated active states
+  var controlsEl = document.getElementById('shopDrawerControls');
+  if (controlsEl) {
+    controlsEl.innerHTML = renderCategoryCards() + renderFilterBar();
+    attachControlListeners();
+    // Restore search input focus/value if user was typing
+    var si = document.getElementById('shopSearchInput');
+    if (si && searchQuery) {
+      si.value = searchQuery;
+      si.focus();
+      var len = si.value.length;
+      si.setSelectionRange(len, len);
+    }
+  }
+  document.getElementById('shopDrawerBody').innerHTML =
+    '<div class="shop-loading"><div class="shop-spinner"></div><span class="shop-loading-text">LOADING...</span></div>';
+  fetchProductsFiltered()
+    .then(function(products) {
+      shopProducts = products;
+      productMap = {};
+      for (var i = 0; i < products.length; i++) { productMap[i] = products[i]; }
+      renderProductGrid();
+    })
+    .catch(function(err) {
+      document.getElementById('shopDrawerBody').innerHTML =
+        '<div class="shop-error">Unable to load products. Please try again.</div>';
+      console.error('Filter error:', err);
+    });
+}
+
 function renderProductGrid() {
   if (!shopProducts.length) {
     document.getElementById('shopDrawerBody').innerHTML =
-      '<div class="shop-error">No products found in store.</div>';
+      '<div class="shop-error">No products found.</div>';
     return;
   }
   var cards = '';
   for (var i = 0; i < shopProducts.length; i++) {
-    var p = shopProducts[i];
+    var p   = shopProducts[i];
     var img = p.images.edges[0] ? p.images.edges[0].node.url : null;
     var pr  = p.priceRange.minVariantPrice;
     var amt = parseFloat(pr.amount).toFixed(2);
-    // Use data-index attribute — no quotes-in-strings problem
     cards += '<div class="product-card" data-product-index="' + i + '">';
     if (img) {
       cards += '<img class="product-card-img" src="' + img + '" alt="" loading="lazy">';
@@ -1073,7 +1301,7 @@ function renderProductGrid() {
   var grid = document.getElementById('shopDrawerBody');
   grid.innerHTML = '<div class="product-grid">' + cards + '</div>';
 
-  // Event delegation — one listener on the grid, no inline onclick
+  // Event delegation — one listener, no inline onclick
   grid.addEventListener('click', function(e) {
     var card = e.target.closest('.product-card');
     if (card) {
@@ -1243,6 +1471,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="shop-drawer-title">BEYOND LIMITS GLOBAL — COLLECTION</span>
     <button class="shop-drawer-close" onclick="closeShopDrawer()">&#x2715;</button>
   </div>
+  <div class="shop-drawer-controls" id="shopDrawerControls"></div>
   <div class="shop-drawer-body" id="shopDrawerBody">
     <div class="shop-loading"><div class="shop-spinner"></div><span class="shop-loading-text">LOADING COLLECTION...</span></div>
   </div>
