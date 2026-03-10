@@ -78,6 +78,7 @@
      SECTION 2 — BRAND CARDS
 ════════════════════════════════ -->
 <section id="brands" class="ux-animate">
+  <div class="brands-parallax-bg" aria-hidden="true"></div>
   <div class="brands-inner">
     <p class="section-eyebrow">Our Companies</p>
     <h2 class="section-heading">Four Distinct Worlds</h2>
@@ -146,6 +147,7 @@
 
 <!-- 3A: Restaurant — image left, content right -->
 <section id="preview-restaurant" class="preview-section preview-restaurant ux-animate">
+  <div class="restaurant-parallax-bg" aria-hidden="true"></div>
   <div class="preview-inner">
 
     <div class="preview-image">
@@ -179,6 +181,7 @@
 
 <!-- 3B: Fashion — content left, image right (flipped) -->
 <section id="preview-fashion" class="preview-section preview-fashion preview-flipped ux-animate">
+  <div class="fashion-parallax-bg" aria-hidden="true"></div>
   <div class="preview-inner">
 
     <div class="preview-content">
@@ -203,6 +206,7 @@
 
 <!-- 3C: Grocery — centered full-width -->
 <section id="preview-grocery" class="preview-grocery ux-animate">
+  <div class="grocery-parallax-bg" aria-hidden="true"></div>
   <div class="preview-centered-inner">
     <span class="coming-soon-badge">Coming Soon</span>
     <h2 class="preview-heading">Fresh Goods. Delivered.</h2>
@@ -220,6 +224,7 @@
 
 <!-- 3D: Events — image left, content right -->
 <section id="preview-events" class="preview-section preview-events ux-animate">
+  <div class="events-parallax-bg" aria-hidden="true"></div>
   <div class="preview-inner">
 
     <div class="preview-image">
@@ -355,6 +360,41 @@
     { threshold: 0.08 }
   );
   document.querySelectorAll('.ux-animate').forEach(el => animObserver.observe(el));
+</script>
+
+<script>
+  /* ══ Parallax background layers ══ */
+  (function() {
+    var isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (isMobile) return;
+
+    var parallaxLayers = [
+      { el: document.querySelector('.brands-parallax-bg'),     speed: 0.30 },
+      { el: document.querySelector('.restaurant-parallax-bg'), speed: 0.25 },
+      { el: document.querySelector('.fashion-parallax-bg'),    speed: 0.20 },
+      { el: document.querySelector('.grocery-parallax-bg'),    speed: 0.30 },
+      { el: document.querySelector('.events-parallax-bg'),     speed: 0.25 }
+    ];
+
+    var ticking = false;
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          var scrollY = window.scrollY;
+          parallaxLayers.forEach(function(layer) {
+            if (!layer.el) return;
+            var rect = layer.el.parentElement.getBoundingClientRect();
+            var offsetFromViewport = rect.top + scrollY;
+            var relativeScroll = scrollY - offsetFromViewport;
+            layer.el.style.transform = 'translateY(' + (relativeScroll * layer.speed) + 'px)';
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
 </script>
 
 </body>
