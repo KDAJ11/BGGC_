@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BGGC Grocery — Fresh Goods, Delivered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="assets/css/grocery.css">
+</head>
+<body>
+
+<!-- ── Progress Bar & Nav ─────────────────────────────────── -->
+<div id="ux-progress"></div>
+<nav>
+  <a class="nav-logo" href="index.html"><img src="BGGC.jpeg" alt="BGGC"></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="fashion.html">Fashion</a></li>
+    <li><a href="restaurant.html">Restaurant</a></li>
+    <li><a href="grocery.html" class="nav-active">Groceries</a></li>
+    <li><a href="events.html">Events</a></li>
+  </ul>
+  <span class="nav-phone">+1 (437) 269-7467</span>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu"></div>
+<div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div id="mobile-drawer-overlay"></div>
+  <div id="mobile-drawer-panel">
+    <button id="mobile-drawer-close" aria-label="Close menu">&#x2715;</button>
+    <img id="mobile-drawer-logo" src="BGGC.jpeg" alt="BGGC">
+    <ul id="mobile-drawer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="fashion.html">Fashion</a></li>
+      <li><a href="restaurant.html">Restaurant</a></li>
+      <li><a href="grocery.html" class="drawer-active">Groceries</a></li>
+      <li><a href="events.html">Events</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── Hero ──────────────────────────────────────────────── -->
+<section class="grocery-hero" id="hero" style="scroll-margin-top:64px">
+  <div class="grocery-hero-inner">
+    <div class="grocery-coming-soon">🌿 Coming Soon</div>
+    <h1 class="grocery-hero-title">Fresh Goods,<br><span>Delivered.</span></h1>
+    <p class="grocery-hero-sub">Your one-stop shop for fresh African and international groceries. Premium quality, sourced with care, delivered right to your door.</p>
+  </div>
+</section>
+
+<!-- ── What's Coming ─────────────────────────────────────── -->
+<section class="whats-coming" id="whats-coming" style="scroll-margin-top:64px">
+  <div class="whats-coming-inner">
+    <span class="section-label-g ux-animate">Coming Features</span>
+    <h2 class="section-title-g ux-animate">What to Expect</h2>
+    <div class="coming-grid">
+      <div class="coming-card ux-animate">
+        <div class="coming-icon">🌿</div>
+        <div class="coming-name">Fresh African Produce</div>
+        <div class="coming-desc">Plantains, yams, fresh peppers, okra, and all the authentic ingredients you love.</div>
+      </div>
+      <div class="coming-card ux-animate">
+        <div class="coming-icon">🌍</div>
+        <div class="coming-name">International Goods</div>
+        <div class="coming-desc">Spices, condiments, grains, and packaged goods sourced from around the world.</div>
+      </div>
+      <div class="coming-card ux-animate">
+        <div class="coming-icon">🚚</div>
+        <div class="coming-name">Home Delivery</div>
+        <div class="coming-desc">Convenient delivery straight to your door. Fresh, fast, and reliable every time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Waitlist ───────────────────────────────────────────── -->
+<section class="waitlist-section" id="waitlist" style="scroll-margin-top:64px">
+  <div class="waitlist-inner">
+    <h2 class="waitlist-title ux-animate">Be the First to Know</h2>
+    <p class="waitlist-sub ux-animate">Sign up and we'll notify you the moment we launch. No spam — just the good stuff.</p>
+    <div id="waitlistFormWrap">
+      <form class="waitlist-form ux-animate" id="waitlistForm" onsubmit="handleWaitlistSubmit(event)">
+        <div class="waitlist-row">
+          <input class="waitlist-field" type="text" placeholder="First Name" required>
+          <input class="waitlist-field" type="email" placeholder="Email Address" required>
+        </div>
+        <button type="submit" class="btn-waitlist">Notify Me 🌿</button>
+      </form>
+      <div class="waitlist-success" id="waitlistSuccess">
+        <div class="waitlist-success-icon">✅</div>
+        <div class="waitlist-success-title">You're on the list!</div>
+        <div class="waitlist-success-text">We'll be in touch soon. Thanks for your interest in BGGC Grocery!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Brand Promise ──────────────────────────────────────── -->
+<section class="promise-section" id="promise" style="scroll-margin-top:64px">
+  <div class="promise-inner ux-animate">
+    <span class="promise-icon">🌱</span>
+    <p class="promise-text">"<em>Premium quality</em>, sourced with care, <em>delivered right to your door</em>."</p>
+    <div style="width:60px;height:4px;background:#F4C430;border-radius:2px;margin:32px auto 0;"></div>
+  </div>
+</section>
+
+<!-- ── Gallery ────────────────────────────────────────────── -->
+<section class="grocery-gallery-section" id="gallery" style="scroll-margin-top:64px">
+  <div class="grocery-gallery-inner">
+    <span class="section-label-g ux-animate" style="display:block;text-align:center;margin-bottom:32px;">A Taste of What's Coming</span>
+    <div class="grocery-gallery ux-animate">
+      <div class="grocery-img"><img src="groceries-dried-goods-sacks.jpg" alt="Dried goods" loading="lazy"></div>
+      <div class="grocery-img"><img src="groceries-fresh-produce-market.jpg" alt="Fresh produce" loading="lazy"></div>
+      <div class="grocery-img"><img src="groceries-nigerian-ingredients-flatlay.jpeg" alt="Nigerian ingredients" loading="lazy"></div>
+      <div class="grocery-img"><img src="groceries-packaged-haul..jpg" alt="Packaged goods" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="BGGC.jpeg" alt="BGGC Logo" class="footer-logo">
+      <p class="footer-brand-desc">Beyond Global Group of Companies — a family of businesses committed to excellence, from the table to the wardrobe to your front door.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Our Companies</p>
+      <ul class="footer-links">
+        <li><a href="fashion.html">Beyond Limits Global</a></li>
+        <li><a href="restaurant.html">BIAC Restaurant</a></li>
+        <li><a href="grocery.html">BGGC Grocery</a></li>
+        <li><a href="events.html">BGGC Events</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Quick Links</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="fashion.html">Shop Now</a></li>
+        <li><a href="restaurant.html">Food Menu</a></li>
+        <li><a href="events.html">Book an Event</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <p class="footer-contact-line">+1 (437) 269-7467</p>
+      <p class="footer-contact-line">2360 Millrace Ct,<br>Mississauga, ON L5N 1W2</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© BGGC — One Family. Four Worlds.</span>
+    <a href="index.html" class="footer-back-home">← Back to Home</a>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Back to top">&#8593;</button>
+
+<!-- ── JavaScript ─────────────────────────────────────────── -->
+<script>
+(function() {
+  var drawer = document.getElementById('mobile-drawer');
+  function openDrawer() { drawer.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeDrawer() { drawer.classList.remove('open'); document.body.style.overflow = ''; }
+  window.closeMobileDrawer = closeDrawer;
+  document.getElementById('navHamburger').addEventListener('click', openDrawer);
+  document.getElementById('mobile-drawer-close').addEventListener('click', closeDrawer);
+  document.getElementById('mobile-drawer-overlay').addEventListener('click', closeDrawer);
+  document.querySelectorAll('#mobile-drawer-links a').forEach(function(a) {
+    a.addEventListener('click', function() { closeDrawer(); });
+  });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
+
+  var btt = document.getElementById('back-to-top');
+  if (btt) {
+    btt.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    window.addEventListener('scroll', function() { btt.classList.toggle('visible', window.scrollY > 400); }, { passive: true });
+  }
+
+  var progressBar = document.getElementById('ux-progress');
+  if (progressBar) {
+    window.addEventListener('scroll', function() {
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.transform = 'scaleX(' + (docH > 0 ? window.scrollY / docH : 0) + ')';
+    }, { passive: true });
+  }
+
+  var animObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('ux-visible'); animObserver.unobserve(entry.target); }
+    });
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.06 });
+  document.querySelectorAll('.ux-animate').forEach(function(el) { animObserver.observe(el); });
+})();
+
+function handleWaitlistSubmit(e) {
+  e.preventDefault();
+  document.getElementById('waitlistForm').style.display = 'none';
+  document.getElementById('waitlistSuccess').classList.add('show');
+}
+</script>
+
+</body>
+</html>

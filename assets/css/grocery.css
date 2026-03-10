@@ -1,0 +1,362 @@
+/* ============================================================
+   BGGC Grocery — Page Styles
+   ============================================================ */
+
+:root {
+  --g-green:    #1B4332;
+  --g-yellow:   #F4C430;
+  --g-brown:    #2D1B00;
+  --g-offwhite: #FAFAF0;
+  --g-mid:      #2D6A4F;
+}
+
+body { background: var(--g-green); color: var(--g-offwhite); padding-bottom: 0; }
+
+/* ── Nav overrides ─────────────────────────────────────────── */
+nav {
+  background: rgba(27,67,50,.97);
+  border-bottom: 1px solid rgba(244,196,48,.2);
+  backdrop-filter: blur(8px);
+}
+.nav-links a { color: var(--g-offwhite); }
+.nav-links a:hover, .nav-links a.nav-active { color: var(--g-yellow); }
+.nav-links a.nav-active::after { background: var(--g-yellow); }
+.nav-phone { color: var(--g-offwhite); }
+.nav-hamburger span { background: var(--g-offwhite); }
+#ux-progress { background: var(--g-yellow); }
+#back-to-top { background: var(--g-yellow); color: var(--g-brown); box-shadow: 0 4px 16px rgba(244,196,48,.4); }
+#back-to-top:hover { background: #d4a820; }
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.grocery-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 40px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #1B4332 0%, #2D6A4F 50%, #1B4332 100%);
+}
+
+.grocery-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 30%, rgba(45,106,79,.45) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(27,67,50,.6) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 50% 10%, rgba(244,196,48,.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.grocery-hero-inner {
+  max-width: 760px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Pulsing badge ─────────────────────────────────────────── */
+.grocery-coming-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--g-yellow);
+  color: var(--g-brown);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 50px;
+  margin-bottom: 32px;
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244,196,48,.5); }
+  50%       { box-shadow: 0 0 0 14px rgba(244,196,48,0); }
+}
+
+/* ── Hero title ────────────────────────────────────────────── */
+.grocery-hero-title {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 800;
+  color: var(--g-offwhite);
+  line-height: 1.0;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+.grocery-hero-title span { color: var(--g-yellow); }
+
+/* ── Hero sub ──────────────────────────────────────────────── */
+.grocery-hero-sub {
+  font-size: 17px;
+  color: rgba(250,250,240,.7);
+  line-height: 1.8;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* ── What's Coming ─────────────────────────────────────────── */
+.whats-coming {
+  background: rgba(0,0,0,.15);
+  padding: 80px 40px;
+}
+
+.whats-coming-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-label-g {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--g-yellow);
+  margin-bottom: 16px;
+}
+
+.section-title-g {
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 800;
+  color: var(--g-offwhite);
+  margin-bottom: 48px;
+}
+
+.coming-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.coming-card {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(244,196,48,.2);
+  border-radius: 20px;
+  padding: 40px 28px;
+  text-align: center;
+  transition: all .3s;
+}
+
+.coming-card:hover {
+  background: rgba(244,196,48,.1);
+  border-color: rgba(244,196,48,.5);
+  transform: translateY(-4px);
+}
+
+.coming-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.coming-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--g-offwhite);
+  margin-bottom: 10px;
+}
+
+.coming-desc {
+  font-size: 14px;
+  color: rgba(250,250,240,.6);
+  line-height: 1.7;
+}
+
+/* ── Waitlist ──────────────────────────────────────────────── */
+.waitlist-section {
+  background: var(--g-green);
+  padding: 80px 40px;
+}
+
+.waitlist-inner {
+  max-width: 540px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.waitlist-title {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  color: var(--g-offwhite);
+  margin-bottom: 12px;
+}
+
+.waitlist-sub {
+  font-size: 16px;
+  color: rgba(250,250,240,.65);
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+.waitlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.waitlist-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.waitlist-field {
+  padding: 14px 20px;
+  background: rgba(255,255,255,.1);
+  border: 1.5px solid rgba(244,196,48,.25);
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--g-offwhite);
+  outline: none;
+  transition: border-color .2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.waitlist-field::placeholder { color: rgba(250,250,240,.35); }
+.waitlist-field:focus { border-color: var(--g-yellow); }
+
+.btn-waitlist {
+  background: var(--g-yellow);
+  color: var(--g-brown);
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  transition: all .25s;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn-waitlist:hover {
+  background: #d4a820;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(244,196,48,.4);
+}
+
+.waitlist-success {
+  background: rgba(244,196,48,.12);
+  border: 1px solid rgba(244,196,48,.4);
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+  display: none;
+}
+
+.waitlist-success.show { display: block; }
+
+.waitlist-success-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.waitlist-success-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--g-yellow);
+  margin-bottom: 8px;
+}
+
+.waitlist-success-text {
+  font-size: 15px;
+  color: rgba(250,250,240,.7);
+  line-height: 1.7;
+}
+
+/* ── Brand Promise ─────────────────────────────────────────── */
+.promise-section {
+  background: var(--g-brown);
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.promise-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.promise-icon {
+  font-size: 56px;
+  margin-bottom: 24px;
+  display: block;
+}
+
+.promise-text {
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 700;
+  color: var(--g-offwhite);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.promise-text em {
+  color: var(--g-yellow);
+  font-style: normal;
+}
+
+/* ── Gallery ───────────────────────────────────────────────── */
+.grocery-gallery-section {
+  background: rgba(0,0,0,.12);
+  padding: 64px 40px;
+}
+
+.grocery-gallery-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.grocery-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.grocery-img {
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(244,196,48,.12);
+}
+
+.grocery-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: .85;
+  transition: opacity .3s;
+}
+
+.grocery-img:hover img { opacity: 1; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .grocery-gallery { grid-template-columns: repeat(2, 1fr); }
+  .coming-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grocery-hero { padding: 80px 24px; }
+  .whats-coming { padding: 80px 24px; }
+  .waitlist-section { padding: 80px 24px; }
+  .promise-section { padding: 80px 24px; }
+  .grocery-gallery-section { padding: 64px 24px; }
+  .waitlist-row { grid-template-columns: 1fr; }
+  .coming-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .grocery-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .grocery-gallery { grid-template-columns: repeat(2, 1fr); }
+}
