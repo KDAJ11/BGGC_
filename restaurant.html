@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond Imagination African Cuisine — BGGC Restaurant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="assets/css/restaurant.css">
+</head>
+<body>
+
+<!-- ── Progress Bar ─────────────────────────────────────────── -->
+<div id="ux-progress"></div>
+
+<!-- ── Navigation ───────────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="index.html"><img src="BGGC.jpeg" alt="BGGC"></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="fashion.html">Fashion</a></li>
+    <li><a href="restaurant.html" class="nav-active">Restaurant</a></li>
+    <li><a href="grocery.html">Groceries</a></li>
+    <li><a href="events.html">Events</a></li>
+  </ul>
+  <span class="nav-phone">+1 (437) 269-7467</span>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu"></div>
+<div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div id="mobile-drawer-overlay"></div>
+  <div id="mobile-drawer-panel">
+    <button id="mobile-drawer-close" aria-label="Close menu">&#x2715;</button>
+    <img id="mobile-drawer-logo" src="BGGC.jpeg" alt="BGGC">
+    <ul id="mobile-drawer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="fashion.html">Fashion</a></li>
+      <li><a href="restaurant.html" class="drawer-active">Restaurant</a></li>
+      <li><a href="grocery.html">Groceries</a></li>
+      <li><a href="events.html">Events</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── Hero Section ─────────────────────────────────────────── -->
+<section class="rest-hero" style="background-image:url('BIACH.jpg')">
+  <div class="rest-hero-content ux-animate">
+    <span class="rest-eyebrow">Authentic West African Cuisine</span>
+    <h1 class="rest-hero-title">Bold Flavours.<br>Soulful Roots.</h1>
+    <p class="rest-hero-sub">Step into a world of bold, soulful flavours rooted in West African culinary tradition. Every dish is a celebration — crafted with care, served with pride.</p>
+    <div class="rest-hero-ctas">
+      <a href="#ordering" class="btn-order-online">Order Online</a>
+      <a href="#menu" class="btn-view-menu">View Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Ordering Section ──────────────────────────────────────── -->
+<section class="order-section" id="ordering">
+  <span class="section-label">Order Now</span>
+  <h2 class="section-title ux-animate">How Would You Like to Order?</h2>
+  <div class="order-cards">
+
+    <!-- Uber Eats -->
+    <div class="order-card order-card-uber ux-animate">
+      <div class="order-card-icon">🛵</div>
+      <h3 class="order-card-title">Uber Eats</h3>
+      <p class="order-card-sub">Fast delivery to your door</p>
+      <a class="order-card-btn btn-ubereats"
+         href="https://www.ubereats.com/store-browse-uuid/eda0b1ff-ae0c-5fe2-b3d4-d16f2f03b7f9?diningMode=DELIVERY"
+         target="_blank" rel="noopener">Order on Uber Eats</a>
+    </div>
+
+    <!-- DoorDash -->
+    <div class="order-card order-card-doordash ux-animate">
+      <div class="order-card-icon">🚗</div>
+      <h3 class="order-card-title">DoorDash</h3>
+      <p class="order-card-sub">Order through DoorDash</p>
+      <a class="order-card-btn btn-doordash"
+         href="https://www.doordash.com/en-CA/store/beyond-imagination-african-cuisine-mississauga-38214347/87155546/"
+         target="_blank" rel="noopener">Order on DoorDash</a>
+    </div>
+
+    <!-- Direct Order — Gold highlight -->
+    <div class="order-card order-card-direct ux-animate">
+      <div class="order-card-icon">💰</div>
+      <h3 class="order-card-title">Save 15% — Order Direct</h3>
+      <p class="order-card-sub">Best value — skip the fees</p>
+      <a class="order-card-btn" href="tel:+14372697467">📞 Call to Order</a>
+      <div class="order-card-direct-extra">
+        <div>e-Transfer: biafricancuisine@gmail.com</div>
+        <div>Pickup only — save 15%</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Menu Section ──────────────────────────────────────────── -->
+<section class="menu-section" id="menu">
+  <span class="section-label">Our Menu</span>
+  <h2 class="section-title">What's on the Table</h2>
+  <div class="menu-section-inner">
+
+    <!-- Main Dishes -->
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Main Dishes</h3>
+      <div class="menu-cards-grid">
+        <div class="menu-card">
+          <span class="menu-card-name">Jollof Rice with Chicken</span>
+          <span class="menu-card-price">$20</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Jollof Rice with Meat or Fish</span>
+          <span class="menu-card-price">$25</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Fried Rice with Chicken</span>
+          <span class="menu-card-price">$25</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Fried Rice with Beef or Fish</span>
+          <span class="menu-card-price">$30</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">White Rice with Ayamase</span>
+          <span class="menu-card-price">$25</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Seafood Okra with Pounded Yam</span>
+          <span class="menu-card-price">$30</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Efo Riro with Pounded Yam</span>
+          <span class="menu-card-price">$25</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Egusi with Pounded Yam</span>
+          <span class="menu-card-price">$25</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Ogbono Soup with Pounded Yam</span>
+          <span class="menu-card-price">$30</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Goat Pepper Soup</span>
+          <span class="menu-card-price">$30</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Fish Pepper Soup</span>
+          <span class="menu-card-price">$30</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Snacks -->
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Snacks</h3>
+      <div class="menu-cards-grid">
+        <div class="menu-card">
+          <span class="menu-card-name">Puff Puff (4 pieces)</span>
+          <span class="menu-card-price">$5</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Sausage Roll (1 piece)</span>
+          <span class="menu-card-price">$1.50</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Scotch Egg</span>
+          <span class="menu-card-price">$3.50</span>
+        </div>
+        <div class="menu-card">
+          <span class="menu-card-name">Buns (3 pieces)</span>
+          <span class="menu-card-price">$5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sides -->
+    <div class="menu-category">
+      <h3 class="menu-cat-title">Sides</h3>
+      <div class="menu-cards-grid">
+        <div class="menu-card">
+          <span class="menu-card-name">Gizz Dodo (spicy gizzard &amp; plantain)</span>
+          <span class="menu-card-price">$10</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Special note -->
+    <p class="menu-special-note">
+      Special &amp; party orders: <a href="tel:+14372697467">+1 (437) 269-7467</a>
+    </p>
+
+  </div>
+</section>
+
+<!-- ── Our Story Section ─────────────────────────────────────── -->
+<section class="story-section">
+  <div class="story-inner ux-animate">
+    <span class="section-label">Our Story</span>
+    <h2 class="section-title">From Lagos to Mississauga</h2>
+    <p class="story-body">Beyond Imagination African Cuisine was born from a deep love for West African culinary tradition. Our recipes have been passed down through generations — each dish carrying the warmth, boldness, and soul of home. We bring the vibrant flavours of Nigeria's kitchens to your table, crafted with authentic ingredients and cooked with pride. Every meal is a journey back to your roots, or an invitation to discover them for the first time.</p>
+    <div class="story-divider">
+      <span class="story-divider-icon">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Location & Hours Section ──────────────────────────────── -->
+<section class="location-section">
+  <span class="section-label">Find Us</span>
+  <h2 class="section-title">Visit Us in Mississauga</h2>
+  <div class="location-inner ux-animate">
+
+    <!-- Left column: details -->
+    <div class="location-details">
+      <ul class="location-info-list">
+        <li class="location-info-item">
+          <span class="location-info-label">Address</span>
+          <span class="location-info-value">2360 Millrace Court, Mississauga ON L5N 1W2</span>
+        </li>
+        <li class="location-info-item">
+          <span class="location-info-label">Ordering</span>
+          <span class="location-info-value">Available via Uber Eats, DoorDash, or call direct</span>
+        </li>
+        <li class="location-info-item">
+          <span class="location-info-label">Pickup</span>
+          <span class="location-info-value">Pickup only for direct orders — <strong>Save 15%</strong></span>
+        </li>
+        <li class="location-info-item">
+          <span class="location-info-label">Payment</span>
+          <span class="location-info-value">e-Transfer, Cash, Debit/Credit via delivery platforms</span>
+        </li>
+        <li class="location-info-item">
+          <span class="location-info-label">Contact</span>
+          <span class="location-info-value">
+            <a href="tel:+14372697467">+1 (437) 269-7467</a><br>
+            <a href="mailto:biafricancuisine@gmail.com">biafricancuisine@gmail.com</a>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right column: map placeholder -->
+    <div class="map-placeholder">
+      <div class="map-pin-icon">📍</div>
+      <p class="map-address-text">
+        2360 Millrace Court<br>
+        Mississauga, ON L5N 1W2
+      </p>
+      <a class="map-directions-link"
+         href="https://maps.google.com/?q=2360+Millrace+Court+Mississauga+ON"
+         target="_blank" rel="noopener">Get Directions</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Sticky CTA Bar ─────────────────────────────────────────── -->
+<div id="rest-cta-bar">
+  <a class="cta-bar-btn cta-bar-uber"
+     href="https://www.ubereats.com/store-browse-uuid/eda0b1ff-ae0c-5fe2-b3d4-d16f2f03b7f9?diningMode=DELIVERY"
+     target="_blank" rel="noopener">Uber Eats</a>
+  <a class="cta-bar-btn cta-bar-doordash"
+     href="https://www.doordash.com/en-CA/store/beyond-imagination-african-cuisine-mississauga-38214347/87155546/"
+     target="_blank" rel="noopener">DoorDash</a>
+  <a class="cta-bar-btn cta-bar-direct" href="tel:+14372697467">📞 Order Direct — Save 15%</a>
+</div>
+
+<!-- ── Footer ────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="BGGC.jpeg" alt="BGGC Logo" class="footer-logo">
+      <p class="footer-brand-desc">Beyond Global Group of Companies — a family of businesses committed to excellence, from the table to the wardrobe to your front door.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Our Companies</p>
+      <ul class="footer-links">
+        <li><a href="fashion.html">Beyond Limits Global</a></li>
+        <li><a href="restaurant.html">BIAC Restaurant</a></li>
+        <li><a href="grocery.html">BGGC Grocery</a></li>
+        <li><a href="events.html">BGGC Events</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Quick Links</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="fashion.html">Shop Now</a></li>
+        <li><a href="restaurant.html">Food Menu</a></li>
+        <li><a href="events.html">Book an Event</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <p class="footer-contact-line">+1 (437) 269-7467</p>
+      <p class="footer-contact-line">biafricancuisine@gmail.com</p>
+      <p class="footer-contact-line">2360 Millrace Ct,<br>Mississauga, ON L5N 1W2</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© BGGC — One Family. Four Worlds.</span>
+    <a href="index.html" class="footer-back-home">← Back to Home</a>
+  </div>
+</footer>
+
+<!-- ── Back to Top ────────────────────────────────────────────── -->
+<button id="back-to-top" aria-label="Back to top">&#8593;</button>
+
+<!-- ── JavaScript ─────────────────────────────────────────────── -->
+<script>
+(function() {
+  // Mobile drawer
+  var drawer = document.getElementById('mobile-drawer');
+  function openDrawer() { drawer.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeDrawer() { drawer.classList.remove('open'); document.body.style.overflow = ''; }
+  window.closeMobileDrawer = closeDrawer;
+  var hamburger = document.getElementById('navHamburger');
+  if (hamburger) hamburger.addEventListener('click', openDrawer);
+  document.getElementById('mobile-drawer-close').addEventListener('click', closeDrawer);
+  document.getElementById('mobile-drawer-overlay').addEventListener('click', closeDrawer);
+  document.querySelectorAll('#mobile-drawer-links a').forEach(function(a) {
+    a.addEventListener('click', function() { closeDrawer(); });
+  });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
+
+  // Back to top
+  var btt = document.getElementById('back-to-top');
+  if (btt) {
+    btt.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    window.addEventListener('scroll', function() {
+      btt.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+  }
+
+  // Progress bar
+  var progressBar = document.getElementById('ux-progress');
+  if (progressBar) {
+    window.addEventListener('scroll', function() {
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.transform = 'scaleX(' + (docH > 0 ? window.scrollY / docH : 0) + ')';
+    }, { passive: true });
+  }
+
+  // Entrance animations
+  var animEls = document.querySelectorAll('.ux-animate');
+  var animObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('ux-visible');
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.06 });
+  animEls.forEach(function(el) { animObserver.observe(el); });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

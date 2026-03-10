@@ -1,0 +1,676 @@
+/* ============================================================
+   restaurant.css — Beyond Imagination African Cuisine
+   BGGC Restaurant Page Styles
+   ============================================================ */
+
+/* ── Body ─────────────────────────────────────────────────── */
+body {
+  background: #1A0A00;
+  color: #FDF3E7;
+  padding-bottom: 64px;
+}
+
+/* ── UX Progress Bar ──────────────────────────────────────── */
+#ux-progress {
+  background: #C8511B;
+}
+
+/* ── Back to Top ──────────────────────────────────────────── */
+#back-to-top {
+  background: #C8511B;
+  color: #fff;
+}
+
+/* ── Nav Override — Dark Theme ────────────────────────────── */
+nav {
+  background: rgba(26, 10, 0, 0.95);
+  border-bottom: 1px solid rgba(200, 81, 27, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+nav .nav-links a,
+nav .nav-phone {
+  color: #FDF3E7;
+}
+
+nav .nav-links a:hover,
+nav .nav-links a.nav-active {
+  color: #C8511B;
+}
+
+.nav-hamburger span {
+  background: #FDF3E7;
+}
+
+/* ── Section Utilities ────────────────────────────────────── */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #C8511B;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  color: #FDF3E7;
+  margin-bottom: 48px;
+}
+
+/* scroll-margin-top for fixed nav offset */
+section {
+  scroll-margin-top: 64px;
+}
+
+/* ── Hero Section ─────────────────────────────────────────── */
+.rest-hero {
+  position: relative;
+  min-height: 100vh;
+  background-image: url('../BIACH.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+.rest-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(26, 10, 0, 0.95) 0%,
+    rgba(26, 10, 0, 0.4) 50%,
+    rgba(26, 10, 0, 0.15) 100%
+  );
+  pointer-events: none;
+}
+
+.rest-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 80px 60px;
+  max-width: 760px;
+}
+
+.rest-eyebrow {
+  display: inline-block;
+  background: rgba(200, 81, 27, 0.18);
+  border: 1px solid rgba(200, 81, 27, 0.5);
+  color: #C8511B;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 24px;
+}
+
+.rest-hero-title {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  margin: 0 0 24px 0;
+}
+
+.rest-hero-sub {
+  font-size: 17px;
+  color: rgba(253, 243, 231, 0.75);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  max-width: 580px;
+}
+
+.rest-hero-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-order-online,
+.btn-view-menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-order-online {
+  background: #C8511B;
+  color: #fff;
+  border: 2px solid #C8511B;
+}
+
+.btn-order-online:hover {
+  background: #d96522;
+  border-color: #d96522;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(200, 81, 27, 0.4);
+}
+
+.btn-view-menu {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.btn-view-menu:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ── Ordering Section ─────────────────────────────────────── */
+.order-section {
+  background: #1A0A00;
+  padding: 80px 40px;
+}
+
+.order-section .section-label,
+.order-section .section-title {
+  text-align: center;
+}
+
+.order-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.order-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.order-card-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.order-card-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #FDF3E7;
+  margin: 0 0 8px 0;
+}
+
+.order-card-sub {
+  font-size: 14px;
+  color: rgba(253, 243, 231, 0.6);
+  margin-bottom: 24px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.order-card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.order-card-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
+/* Uber Eats button */
+.btn-ubereats {
+  background: #06C167;
+  color: #fff;
+}
+
+/* DoorDash button */
+.btn-doordash {
+  background: #FF3008;
+  color: #fff;
+}
+
+/* Direct Order Card — gold gradient border + title */
+.order-card-direct {
+  background: rgba(212, 160, 23, 0.05);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.order-card-direct::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #D4A017, #f0c840, #D4A017);
+  z-index: -1;
+}
+
+.order-card-direct .order-card-title {
+  color: #D4A017;
+}
+
+.order-card-direct .order-card-btn {
+  background: linear-gradient(135deg, #D4A017, #f0c840);
+  color: #1A0A00;
+  font-weight: 800;
+}
+
+.order-card-direct-extra {
+  margin-top: 16px;
+  font-size: 12px;
+  color: rgba(212, 160, 23, 0.8);
+  line-height: 1.7;
+}
+
+/* ── Menu Section ─────────────────────────────────────────── */
+.menu-section {
+  padding: 80px 40px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.menu-section .section-label,
+.menu-section .section-title {
+  text-align: center;
+}
+
+.menu-section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.menu-category {
+  margin-bottom: 48px;
+}
+
+.menu-cat-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #C8511B;
+  border-bottom: 2px solid rgba(200, 81, 27, 0.35);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.menu-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.menu-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.menu-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(200, 81, 27, 0.25);
+}
+
+.menu-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FDF3E7;
+  line-height: 1.4;
+}
+
+.menu-card-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: #C8511B;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.menu-special-note {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(253, 243, 231, 0.6);
+  padding: 16px 20px;
+  border: 1px dashed rgba(200, 81, 27, 0.3);
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.menu-special-note a {
+  color: #C8511B;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.menu-special-note a:hover {
+  text-decoration: underline;
+}
+
+/* ── Our Story Section ────────────────────────────────────── */
+.story-section {
+  background: #8B3A1A;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.story-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.story-section .section-label {
+  color: rgba(253, 243, 231, 0.7);
+}
+
+.story-section .section-title {
+  color: #FDF3E7;
+  margin-bottom: 24px;
+}
+
+.story-body {
+  font-size: 17px;
+  color: rgba(253, 243, 231, 0.85);
+  line-height: 1.9;
+  margin-bottom: 40px;
+}
+
+.story-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.story-divider::before,
+.story-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(253, 243, 231, 0.25);
+}
+
+.story-divider-icon {
+  font-size: 20px;
+  opacity: 0.7;
+}
+
+/* ── Location Section ─────────────────────────────────────── */
+.location-section {
+  background: #1A0A00;
+  padding: 80px 40px;
+}
+
+.location-section .section-label,
+.location-section > .section-title {
+  text-align: center;
+}
+
+.location-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.location-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.location-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.location-info-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #C8511B;
+}
+
+.location-info-value {
+  font-size: 15px;
+  color: rgba(253, 243, 231, 0.85);
+  line-height: 1.6;
+}
+
+.location-info-value a {
+  color: #C8511B;
+  text-decoration: none;
+}
+
+.location-info-value a:hover {
+  text-decoration: underline;
+}
+
+/* Map Placeholder Card */
+.map-placeholder {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.map-pin-icon {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.map-address-text {
+  font-size: 16px;
+  color: rgba(253, 243, 231, 0.8);
+  line-height: 1.6;
+}
+
+.map-directions-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  background: #C8511B;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.map-directions-link:hover {
+  background: #d96522;
+  transform: translateY(-2px);
+}
+
+/* ── Sticky CTA Bar ───────────────────────────────────────── */
+#rest-cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  display: flex;
+  background: rgba(26, 10, 0, 0.97);
+  border-top: 1px solid rgba(200, 81, 27, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cta-bar-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.cta-bar-btn:hover {
+  opacity: 0.85;
+}
+
+.cta-bar-uber {
+  background: #06C167;
+  color: #fff;
+}
+
+.cta-bar-doordash {
+  background: #FF3008;
+  color: #fff;
+}
+
+.cta-bar-direct {
+  background: linear-gradient(135deg, #D4A017, #f0c840);
+  color: #1A0A00;
+}
+
+/* ── Entrance Animations ──────────────────────────────────── */
+.ux-animate {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.ux-animate.ux-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* stagger order cards */
+.order-card:nth-child(2) { transition-delay: 0.1s; }
+.order-card:nth-child(3) { transition-delay: 0.2s; }
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+/* 1024px: order cards 2-col */
+@media (max-width: 1024px) {
+  .order-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .order-card-direct {
+    grid-column: 1 / -1;
+    max-width: 480px;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .menu-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .location-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* 768px: order cards 1-col */
+@media (max-width: 768px) {
+  .rest-hero-content {
+    padding: 60px 24px;
+  }
+
+  .order-section,
+  .menu-section,
+  .story-section,
+  .location-section {
+    padding: 60px 20px;
+  }
+
+  .order-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .order-card-direct {
+    grid-column: unset;
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .location-inner {
+    gap: 32px;
+  }
+}
+
+/* 640px: menu 1-col */
+@media (max-width: 640px) {
+  .menu-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rest-hero-ctas {
+    flex-direction: column;
+  }
+
+  .btn-order-online,
+  .btn-view-menu {
+    width: 100%;
+    text-align: center;
+  }
+
+  .cta-bar-btn {
+    font-size: 11px;
+    padding: 12px 4px;
+  }
+}

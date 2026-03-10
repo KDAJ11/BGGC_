@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BGGC Events — Moments That Last Forever</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+<link rel="stylesheet" href="assets/css/events.css">
+</head>
+<body>
+
+<!-- ── Progress Bar & Nav ─────────────────────────────────── -->
+<div id="ux-progress"></div>
+<nav>
+  <a class="nav-logo" href="index.html"><img src="BGGC.jpeg" alt="BGGC"></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="fashion.html">Fashion</a></li>
+    <li><a href="restaurant.html">Restaurant</a></li>
+    <li><a href="grocery.html">Groceries</a></li>
+    <li><a href="events.html" class="nav-active">Events</a></li>
+  </ul>
+  <span class="nav-phone">+1 (437) 269-7467</span>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu"></div>
+<div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div id="mobile-drawer-overlay"></div>
+  <div id="mobile-drawer-panel">
+    <button id="mobile-drawer-close" aria-label="Close menu">&#x2715;</button>
+    <img id="mobile-drawer-logo" src="BGGC.jpeg" alt="BGGC">
+    <ul id="mobile-drawer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="fashion.html">Fashion</a></li>
+      <li><a href="restaurant.html">Restaurant</a></li>
+      <li><a href="grocery.html">Groceries</a></li>
+      <li><a href="events.html" class="drawer-active">Events</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── Hero ──────────────────────────────────────────────── -->
+<section class="events-hero" id="hero" style="scroll-margin-top:64px">
+  <div class="events-hero-inner">
+    <div class="events-eyebrow">BGGC Events</div>
+    <h1 class="events-hero-title">Moments That<br><span>Last Forever.</span></h1>
+    <p class="events-hero-sub">From intimate gatherings to grand celebrations, we craft experiences that leave lasting impressions. Let us bring your vision to life.</p>
+    <a href="#inquiry" class="btn-plan-event">Plan Your Event</a>
+  </div>
+</section>
+
+<!-- ── Stats Bar ──────────────────────────────────────────── -->
+<section class="stats-bar" id="stats" style="scroll-margin-top:64px">
+  <div class="stats-bar-inner">
+    <div class="stat-card ux-animate">
+      <div class="stat-value">500+</div>
+      <div class="stat-label">Events Hosted</div>
+    </div>
+    <div class="stat-card ux-animate">
+      <div class="stat-value">10+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-card ux-animate">
+      <div class="stat-value">5&#9733;</div>
+      <div class="stat-label">Client Rating</div>
+    </div>
+    <div class="stat-card ux-animate">
+      <div class="stat-value">&#8734;</div>
+      <div class="stat-label">Possibilities</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Event Types ────────────────────────────────────────── -->
+<section class="event-types-section" id="event-types" style="scroll-margin-top:64px">
+  <div class="event-types-inner">
+    <span class="section-label-ev ux-animate">What We Do</span>
+    <h2 class="section-title-ev ux-animate">Every Occasion, Handled</h2>
+    <div class="event-types-grid">
+
+      <div class="event-type-card ux-animate">
+        <div class="event-type-icon">&#x1F492;</div>
+        <div class="event-type-name">Wedding</div>
+        <div class="event-type-desc">Creating the perfect day you've always dreamed of</div>
+      </div>
+
+      <div class="event-type-card ux-animate">
+        <div class="event-type-icon">&#x1F382;</div>
+        <div class="event-type-name">Birthday Celebration</div>
+        <div class="event-type-desc">Making every milestone unforgettable</div>
+      </div>
+
+      <div class="event-type-card ux-animate">
+        <div class="event-type-icon">&#x1F3E2;</div>
+        <div class="event-type-name">Corporate Event</div>
+        <div class="event-type-desc">Professional events that impress and inspire</div>
+      </div>
+
+      <div class="event-type-card ux-animate">
+        <div class="event-type-icon">&#x1F38A;</div>
+        <div class="event-type-name">Cultural Celebration</div>
+        <div class="event-type-desc">Honouring traditions with style and dignity</div>
+      </div>
+
+      <div class="event-type-card ux-animate">
+        <div class="event-type-icon">&#x1F393;</div>
+        <div class="event-type-name">Graduation Party</div>
+        <div class="event-type-desc">Celebrating your greatest achievements</div>
+      </div>
+
+      <div class="event-type-card ux-animate">
+        <div class="event-type-icon">&#x2728;</div>
+        <div class="event-type-name">Other</div>
+        <div class="event-type-desc">Whatever the occasion, we make it extraordinary</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Inquiry Form ───────────────────────────────────────── -->
+<section class="inquiry-section" id="inquiry" style="scroll-margin-top:64px">
+  <div class="inquiry-inner">
+    <span class="section-label-ev ux-animate">Get in Touch</span>
+    <h2 class="inquiry-title ux-animate">Book Your Event</h2>
+    <p class="inquiry-sub ux-animate">Fill out the form below and our team will be in touch within 24 hours.</p>
+    <div id="inquiryFormWrap">
+      <form id="inquiryForm" onsubmit="handleInquirySubmit(event)">
+
+        <!-- First Name / Last Name -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="firstName">First Name</label>
+            <input class="form-input" id="firstName" type="text" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input class="form-input" id="lastName" type="text" placeholder="Smith" required>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" id="email" type="email" placeholder="jane@example.com" required>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone</label>
+          <input class="form-input" id="phone" type="tel" placeholder="+1 (555) 000-0000">
+        </div>
+
+        <!-- Event Type -->
+        <div class="form-group">
+          <label class="form-label" for="eventType">Event Type</label>
+          <select class="form-select" id="eventType" required>
+            <option value="" disabled selected>Select an event type</option>
+            <option value="wedding">Wedding</option>
+            <option value="birthday">Birthday Celebration</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="cultural">Cultural Celebration</option>
+            <option value="graduation">Graduation Party</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <!-- Preferred Date / Expected Guests -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="eventDate">Preferred Date</label>
+            <input class="form-input" id="eventDate" type="date">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="guestCount">Expected Guests</label>
+            <select class="form-select" id="guestCount">
+              <option value="" disabled selected>Select guest count</option>
+              <option value="under50">Under 50</option>
+              <option value="50-100">50–100</option>
+              <option value="100-250">100–250</option>
+              <option value="250-500">250–500</option>
+              <option value="500+">500+</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label class="form-label" for="message">Message</label>
+          <textarea class="form-textarea" id="message" placeholder="Tell us about your event — theme, venue preferences, special requests…"></textarea>
+        </div>
+
+        <button type="submit" class="btn-send-inquiry">Send Inquiry</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <div style="font-size:56px;margin-bottom:20px">&#x1F942;</div>
+        <div style="font-size:24px;font-weight:800;color:var(--ev-gold);margin-bottom:10px">Inquiry Received!</div>
+        <div style="font-size:15px;color:rgba(250,249,246,.65);line-height:1.7">Thank you! Our events team will be in touch within 24 hours to discuss your vision.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Why Choose Us ──────────────────────────────────────── -->
+<section class="why-section" id="why" style="scroll-margin-top:64px">
+  <div class="why-inner">
+    <span class="section-label-ev ux-animate">Why BGGC Events</span>
+    <h2 class="section-title-ev ux-animate">Why Choose Us</h2>
+    <div class="why-grid">
+
+      <div class="why-card ux-animate">
+        <div class="why-icon">&#x1F3C6;</div>
+        <div class="why-name">Decade of Experience</div>
+        <div class="why-desc">10+ years crafting memorable events for every occasion and budget</div>
+      </div>
+
+      <div class="why-card ux-animate">
+        <div class="why-icon">&#x1F3AF;</div>
+        <div class="why-name">Full-Service Planning</div>
+        <div class="why-desc">From concept to clean-up, we handle every detail so you don't have to</div>
+      </div>
+
+      <div class="why-card ux-animate">
+        <div class="why-icon">&#x1F48E;</div>
+        <div class="why-name">Every Detail Handled</div>
+        <div class="why-desc">Catering, décor, coordination — all expertly managed by our team</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="BGGC.jpeg" alt="BGGC Logo">
+      <p>Beyond Global Group of Companies — a family of businesses committed to excellence, from the table to the wardrobe to your front door.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Our Companies</h4>
+      <ul>
+        <li><a href="fashion.html">Beyond Limits Global</a></li>
+        <li><a href="restaurant.html">BIAC Restaurant</a></li>
+        <li><a href="grocery.html">BGGC Grocery</a></li>
+        <li><a href="events.html">BGGC Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="fashion.html">Shop Now</a></li>
+        <li><a href="restaurant.html">Food Menu</a></li>
+        <li><a href="events.html">Book an Event</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>+1 (437) 269-7467</p>
+      <p>2360 Millrace Ct,<br>Mississauga, ON L5N 1W2</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© BGGC — One Family. Four Worlds.</p>
+    <p><a href="index.html" style="color:rgba(250,249,246,.4);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(250,249,246,.4)'">← Back to Home</a></p>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Back to top">&#8593;</button>
+
+<!-- ── JavaScript ─────────────────────────────────────────── -->
+<script>
+(function() {
+  var drawer = document.getElementById('mobile-drawer');
+  function openDrawer() { drawer.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeDrawer() { drawer.classList.remove('open'); document.body.style.overflow = ''; }
+  window.closeMobileDrawer = closeDrawer;
+  document.getElementById('navHamburger').addEventListener('click', openDrawer);
+  document.getElementById('mobile-drawer-close').addEventListener('click', closeDrawer);
+  document.getElementById('mobile-drawer-overlay').addEventListener('click', closeDrawer);
+  document.querySelectorAll('#mobile-drawer-links a').forEach(function(a) {
+    a.addEventListener('click', function() { closeDrawer(); });
+  });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
+
+  var btt = document.getElementById('back-to-top');
+  if (btt) {
+    btt.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    window.addEventListener('scroll', function() { btt.classList.toggle('visible', window.scrollY > 400); }, { passive: true });
+  }
+
+  var progressBar = document.getElementById('ux-progress');
+  if (progressBar) {
+    window.addEventListener('scroll', function() {
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.transform = 'scaleX(' + (docH > 0 ? window.scrollY / docH : 0) + ')';
+    }, { passive: true });
+  }
+
+  var animObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('ux-visible'); animObserver.unobserve(entry.target); }
+    });
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.06 });
+  document.querySelectorAll('.ux-animate').forEach(function(el) { animObserver.observe(el); });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+})();
+
+function handleInquirySubmit(e) {
+  e.preventDefault();
+  document.getElementById('inquiryForm').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+}
+</script>
+
+</body>
+</html>
