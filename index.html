@@ -21,7 +21,7 @@
   --border:   #E8E8E8;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; overflow-x:hidden; }
 body { font-family:'Inter',sans-serif; background:var(--white); color:var(--body-txt); overflow-x:hidden; font-size:16px; padding-top:64px; }
 a { text-decoration:none; }
 
@@ -508,7 +508,9 @@ footer {
   nav { padding:0 20px; }
   .nav-links, .nav-phone { display:none; }
   .nav-hamburger { display:flex; }
-  .shop-top-bar { padding:0 20px; }
+  .shop-top-bar { padding:0 20px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .shop-top-bar::-webkit-scrollbar { display:none; }
+  .shop-tab { flex-shrink:0; }
   .shop-filter-bar { padding:10px 20px; }
   .shop-body { padding:32px 20px; }
   .rest-body { padding:40px 20px; }
@@ -642,13 +644,9 @@ footer {
   .cta-bar-btn { padding:8px 14px; font-size:12px; }
 }
 
-/* ── 6. Scroll Snap ── */
+/* ── 6. Scroll Padding (for fixed nav offset) ── */
 html {
-  scroll-snap-type:y proximity;
   scroll-padding-top:64px;
-}
-#home, #fashion, #restaurant, #grocery, #events, footer {
-  scroll-snap-align:start;
 }
 
 /* ── 7. Mobile Drawer ── */
