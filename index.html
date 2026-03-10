@@ -1082,7 +1082,7 @@ html {
 // ════════════ SHOPIFY STOREFRONT ════════════
 var SHOPIFY_STORE = 'yguwat-dp.myshopify.com';
 var SHOPIFY_TOKEN = 'b05d542f7d13e3b60ff05185d31ec1dc';
-var SHOPIFY_URL   = 'https://' + SHOPIFY_STORE + '/api/2026-01/graphql.json';
+var SHOPIFY_URL   = 'https://' + SHOPIFY_STORE + '/api/2025-01/graphql.json';
 var shopProducts    = [];
 var shopCollections = [];
 var shopLoaded      = false;
@@ -1110,8 +1110,29 @@ function shopifyQuery(q) {
     },
     body: JSON.stringify({ query: q })
   }).then(function(r) {
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    return r.json();
+    return r.json().then(function(json) {
+      if (!r.ok) {
+        var msg = (json && json.errors && json.errors[0]) ? json.errors[0].message : ('HTTP ' + r.status);
+        console.error('[Shopify] HTTP error', r.status, json);
+        throw new Error(msg);
+      }
+      if (json.errors && json.errors.length) {
+        var errMsg = json.errors.map(function(e) { return e.message; }).join('; ');
+        console.error('[Shopify] API errors:', json.errors);
+        throw new Error(errMsg);
+      }
+      if (!json.data) {
+        console.error('[Shopify] No data in response:', json);
+        throw new Error('No data returned from Shopify');
+      }
+      return json;
+    });
+  }).catch(function(err) {
+    if (err.name === 'SyntaxError') {
+      console.error('[Shopify] Invalid JSON response');
+      throw new Error('Invalid response from Shopify');
+    }
+    throw err;
   });
 }
 
@@ -1150,6 +1171,7 @@ var PRODUCT_FIELDS = 'id title description createdAt'
 function fetchCollections() {
   var q = '{collections(first:30){edges{node{id title handle image{url}}}}}';
   return shopifyQuery(q).then(function(d) {
+    if (!d.data || !d.data.collections) return [];
     return d.data.collections.edges.map(function(e) { return e.node; });
   });
 }
@@ -1208,11 +1230,13 @@ function fetchProductsFiltered() {
     var safe = searchQuery.replace(/"/g, '');
     q = '{products(first:50,' + sortStr + ',query:"' + safe + '"){edges{node{' + PRODUCT_FIELDS + '}}}}';
     return shopifyQuery(q).then(function(d) {
+      if (!d.data || !d.data.products) return [];
       return d.data.products.edges.map(function(e) { return e.node; });
     });
   } else {
     q = '{products(first:50,' + sortStr + '){edges{node{' + PRODUCT_FIELDS + '}}}}';
     return shopifyQuery(q).then(function(d) {
+      if (!d.data || !d.data.products) return [];
       return d.data.products.edges.map(function(e) { return e.node; });
     });
   }
@@ -1328,6 +1352,8 @@ function applyFilters() {
 function initShopify() {
   if (shopLoaded) return;
   shopLoaded = true;
+  var row = document.getElementById('collectionCardsRow');
+  var container = document.getElementById('product-grid-container');
   Promise.all([fetchCollections(), fetchProductsFiltered()])
     .then(function(results) {
       shopCollections = results[0];
@@ -1338,11 +1364,15 @@ function initShopify() {
       renderProductGrid();
     })
     .catch(function(err) {
-      var row = document.getElementById('collectionCardsRow');
-      if (row) row.innerHTML = '<div class="shop-error">Unable to load collections.</div>';
-      var container = document.getElementById('product-grid-container');
-      if (container) container.innerHTML = '<div class="shop-error">Unable to load products. Please try again.</div>';
-      console.error('Shopify load error:', err);
+      console.error('[Shopify] Load error:', err);
+      var errMsg = err && err.message ? err.message : 'Unknown error';
+      var retryBtn = '<button onclick="shopLoaded=false;initShopify();" style="margin-top:14px;padding:10px 24px;background:var(--magenta);color:#fff;border:none;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;">Retry</button>';
+      if (row) row.innerHTML = '<div class="shop-error" style="padding:20px 0;"></div>';
+      if (container) container.innerHTML = '<div class="shop-error" style="grid-column:1/-1">'
+        + '<div style="font-size:15px;font-weight:600;color:#111;margin-bottom:8px;">Unable to load products</div>'
+        + '<div style="font-size:13px;color:#888;margin-bottom:4px;">' + errMsg + '</div>'
+        + retryBtn
+        + '</div>';
     });
 }
 
@@ -1563,7 +1593,7 @@ document.addEventListener('keydown', function(e) {
   // ── 4. Section entrance animations ──
   // Apply .ux-animate to key content elements in non-home sections
   var animTargets = [
-    '#fashion .shop-body',
+    '#fashion .shop-section-label',
     '#fashion .shop-top-bar',
     '#restaurant .rest-hero-inner',
     '#restaurant .rest-promo',
