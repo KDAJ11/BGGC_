@@ -527,7 +527,13 @@ footer {
   .hero-tiles { grid-template-columns:repeat(2,1fr); }
 }
 @media (max-width:640px) {
-  #product-grid-container { grid-template-columns:1fr; }
+  #product-grid-container { grid-template-columns:1fr 1fr; gap:10px; }
+  .product-card-info { padding:10px; gap:4px; }
+  .product-card-title { font-size:12px; }
+  .product-card-price { font-size:13px; }
+  .product-card-original { font-size:11px; }
+  .product-card-btn { font-size:10px; padding:8px; }
+  .product-card-stars { font-size:11px; }
   .menu-cards-grid { grid-template-columns:1fr; }
   .grocery-gallery { grid-template-columns:1fr 1fr; }
 }
@@ -804,7 +810,6 @@ html {
     <!-- Product grid -->
     <div class="product-grid-header">
       <h2 class="product-grid-h2">Own the <span class="accent">Look</span></h2>
-      <div class="product-grid-explore"><a href="#">Explore all &#8594;</a></div>
     </div>
     <div class="product-grid-wrap">
       <div id="shopDrawerBody">
