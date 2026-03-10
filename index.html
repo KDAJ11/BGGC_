@@ -609,29 +609,6 @@ footer {
     <button class="shop-tab" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'})">Event</button>
   </div>
 
-  <!-- Search + filter bar -->
-  <div class="shop-filter-bar">
-    <div class="search-wrap">
-      <span class="search-icon">
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-          <circle cx="8.5" cy="8.5" r="5.5" stroke="#FF00CC" stroke-width="1.5"/>
-          <line x1="12.5" y1="12.5" x2="17" y2="17" stroke="#FF00CC" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </span>
-      <input type="text" id="globalSearchInput" placeholder="Search here" oninput="handleGlobalSearch(this.value)">
-    </div>
-    <div class="filter-right">
-      <button class="filter-btn" id="categoryDropdownBtn">
-        All Category
-        <svg width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1l5 5 5-5" stroke="#FF00CC" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-      </button>
-      <button class="filter-btn" id="sortDropdownBtn">
-        New Arrival
-        <svg width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1l5 5 5-5" stroke="#FF00CC" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-  </div>
-
   <!-- Shop body -->
   <div class="shop-body">
 
@@ -738,6 +715,22 @@ footer {
   </div>
 </section>
 
+<!-- ═══════ GROCERIES SECTION (#grocery) ═══════ -->
+<section id="grocery">
+  <div class="grocery-inner">
+    <div class="grocery-badge">Coming Soon</div>
+    <h2 class="grocery-h1">Fresh Goods, Delivered.</h2>
+    <p class="grocery-sub">Your one-stop shop for fresh African and international groceries. Premium quality, sourced with care, delivered right to your door.</p>
+
+    <div class="grocery-gallery">
+      <div class="grocery-img"><img src="groceries-dried-goods-sacks.jpg" alt="Dried goods" loading="lazy"></div>
+      <div class="grocery-img"><img src="groceries-fresh-produce-market.jpg" alt="Fresh produce" loading="lazy"></div>
+      <div class="grocery-img"><img src="groceries-nigerian-ingredients-flatlay.jpeg" alt="Nigerian ingredients" loading="lazy"></div>
+      <div class="grocery-img"><img src="groceries-packaged-haul..jpg" alt="Packaged goods" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ EVENTS SECTION (#events) ═══════ -->
 <section id="events">
   <div class="events-inner">
@@ -829,22 +822,6 @@ footer {
 
         <button type="submit" class="btn-send">Send Inquiry</button>
       </form>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════ GROCERIES SECTION (#grocery) ═══════ -->
-<section id="grocery">
-  <div class="grocery-inner">
-    <div class="grocery-badge">Coming Soon</div>
-    <h2 class="grocery-h1">Fresh Goods, Delivered.</h2>
-    <p class="grocery-sub">Your one-stop shop for fresh African and international groceries. Premium quality, sourced with care, delivered right to your door.</p>
-
-    <div class="grocery-gallery">
-      <div class="grocery-img"><img src="groceries-dried-goods-sacks.jpg" alt="Dried goods" loading="lazy"></div>
-      <div class="grocery-img"><img src="groceries-fresh-produce-market.jpg" alt="Fresh produce" loading="lazy"></div>
-      <div class="grocery-img"><img src="groceries-nigerian-ingredients-flatlay.jpeg" alt="Nigerian ingredients" loading="lazy"></div>
-      <div class="grocery-img"><img src="groceries-packaged-haul..jpg" alt="Packaged goods" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -1066,7 +1043,6 @@ function renderCollectionCards() {
       activeCollection = (activeCollection === handle) ? null : handle;
       if (activeCollection !== 'accessories') accessoriesSubFilter = null;
       searchQuery = '';
-      document.getElementById('globalSearchInput').value = '';
       applyFilters();
       document.getElementById('shopDrawerBody').scrollIntoView({ behavior: 'smooth' });
     });
@@ -1142,23 +1118,15 @@ function applyFilters() {
     });
 }
 
-function handleGlobalSearch(val) {
-  clearTimeout(searchDebounce);
-  searchDebounce = setTimeout(function() {
-    searchQuery = val.trim();
-    if (searchQuery) activeCollection = null;
-    applyFilters();
-  }, 380);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
+function initShopify() {
+  if (shopLoaded) return;
+  shopLoaded = true;
   Promise.all([fetchCollections(), fetchProductsFiltered()])
     .then(function(results) {
       shopCollections = results[0];
       shopProducts    = results[1];
       productMap = {};
       for (var i = 0; i < shopProducts.length; i++) { productMap[i] = shopProducts[i]; }
-      shopLoaded = true;
       renderCollectionCards();
       renderProductGrid();
     })
@@ -1169,6 +1137,21 @@ document.addEventListener('DOMContentLoaded', function() {
       if (container) container.innerHTML = '<div class="shop-error">Unable to load products. Please try again.</div>';
       console.error('Shopify load error:', err);
     });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var fashionSection = document.getElementById('fashion');
+  if (fashionSection && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        observer.disconnect();
+        initShopify();
+      }
+    }, { rootMargin: '200px' });
+    observer.observe(fashionSection);
+  } else {
+    initShopify();
+  }
 
   var infoPanel = document.getElementById('productModalInfo');
   if (infoPanel) {
