@@ -1347,18 +1347,7 @@ function initShopify() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  var fashionSection = document.getElementById('fashion');
-  if (fashionSection && 'IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries) {
-      if (entries[0].isIntersecting) {
-        observer.disconnect();
-        initShopify();
-      }
-    }, { rootMargin: '200px' });
-    observer.observe(fashionSection);
-  } else {
-    initShopify();
-  }
+  initShopify();
 
   var infoPanel = document.getElementById('productModalInfo');
   if (infoPanel) {
