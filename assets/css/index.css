@@ -136,7 +136,6 @@ nav.nav-transparent {
   width: 100px;
   height: auto;
   object-fit: contain;
-  mix-blend-mode: multiply;
   animation-delay: .1s;
 }
 
