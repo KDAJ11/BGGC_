@@ -35,8 +35,10 @@ nav {
   display:flex; align-items:center; justify-content:space-between;
 }
 .nav-logo {
-  font-size:22px; font-weight:800; color:var(--magenta);
-  letter-spacing:-0.5px; text-decoration:none; flex-shrink:0;
+  text-decoration:none; flex-shrink:0; display:flex; align-items:center;
+}
+.nav-logo img {
+  height:40px; width:auto; object-fit:contain;
 }
 .nav-links {
   display:flex; align-items:center; gap:28px; list-style:none;
@@ -67,27 +69,28 @@ nav {
 ═══════════════════════════════ */
 #home {
   position:relative; min-height:100vh;
-  background:linear-gradient(135deg,#0d0d0d 0%,#1a001a 50%,#000a05 100%);
+  background:linear-gradient(135deg,#ffffff 0%,#f5e6ff 40%,#e8f5ee 100%);
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   padding:80px 40px 60px; overflow:hidden;
 }
 #home::before {
   content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse at 20% 50%,rgba(255,0,204,.15) 0%,transparent 60%),
+  background:radial-gradient(ellipse at 20% 50%,rgba(255,0,204,.08) 0%,transparent 60%),
              radial-gradient(ellipse at 80% 20%,rgba(3,80,40,.25) 0%,transparent 55%);
   pointer-events:none;
 }
 .hero-inner { position:relative; z-index:2; text-align:center; max-width:800px; }
-.hero-logo-text {
-  font-size:clamp(48px,8vw,96px); font-weight:800; color:var(--magenta);
-  letter-spacing:-2px; line-height:1; margin-bottom:24px; display:block;
+.hero-logo {
+  height:clamp(80px,12vw,150px); width:auto; object-fit:contain;
+  margin-bottom:24px; display:block; margin-left:auto; margin-right:auto;
+  filter:drop-shadow(0 4px 16px rgba(0,0,0,.12));
 }
 .hero-h1 {
-  font-size:clamp(32px,5vw,64px); font-weight:800; color:var(--white);
+  font-size:clamp(32px,5vw,64px); font-weight:800; color:#111111;
   line-height:1.05; margin-bottom:14px; letter-spacing:-1px;
 }
 .hero-sub {
-  font-size:18px; color:rgba(255,255,255,.7); margin-bottom:40px; font-weight:400;
+  font-size:18px; color:rgba(0,0,0,.6); margin-bottom:40px; font-weight:400;
 }
 .hero-ctas { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:64px; }
 .btn-primary {
@@ -97,11 +100,11 @@ nav {
 }
 .btn-primary:hover { background:#dd00b0; transform:translateY(-2px); box-shadow:0 10px 28px rgba(255,0,204,.4); }
 .btn-outline-white {
-  background:transparent; color:var(--white); padding:14px 36px;
+  background:transparent; color:#111111; padding:14px 36px;
   border-radius:50px; font-size:15px; font-weight:700;
-  border:2px solid rgba(255,255,255,.6); display:inline-block; transition:all .25s;
+  border:2px solid rgba(0,0,0,.3); display:inline-block; transition:all .25s;
 }
-.btn-outline-white:hover { background:rgba(255,255,255,.12); }
+.btn-outline-white:hover { background:rgba(0,0,0,.06); border-color:var(--magenta); color:var(--magenta); }
 
 /* Hero brand tiles */
 .hero-tiles {
@@ -109,17 +112,18 @@ nav {
   position:relative; z-index:2;
 }
 .hero-tile {
-  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.75); border:1px solid rgba(0,0,0,.1);
   border-radius:16px; padding:24px 18px; text-align:center;
   cursor:pointer; transition:all .3s; display:block;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
 }
 .hero-tile:hover {
-  background:rgba(255,0,204,.12); border-color:rgba(255,0,204,.4);
-  transform:translateY(-4px); box-shadow:0 12px 32px rgba(255,0,204,.2);
+  background:rgba(255,0,204,.08); border-color:rgba(255,0,204,.4);
+  transform:translateY(-4px); box-shadow:0 12px 32px rgba(255,0,204,.15);
 }
-.hero-tile-name { font-size:14px; font-weight:700; color:var(--white); margin-bottom:4px; }
+.hero-tile-name { font-size:14px; font-weight:700; color:#111111; margin-bottom:4px; }
 .hero-tile-cat  { font-size:11px; font-weight:600; color:var(--magenta); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
-.hero-tile-tag  { font-size:12px; color:rgba(255,255,255,.6); line-height:1.5; }
+.hero-tile-tag  { font-size:12px; color:rgba(0,0,0,.55); line-height:1.5; }
 
 /* ═══════════════════════════════
    FASHION / SHOP (#fashion)
@@ -533,7 +537,7 @@ footer {
 
 <!-- ═══════ GLOBAL NAV ═══════ -->
 <nav>
-  <a class="nav-logo" href="#home">BGGC</a>
+  <a class="nav-logo" href="#home"><img src="BGGC.jpeg" alt="BGGC"></a>
 
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
@@ -562,7 +566,7 @@ footer {
 <!-- ═══════ HERO (#home) ═══════ -->
 <section id="home">
   <div class="hero-inner">
-    <span class="hero-logo-text">BGGC</span>
+    <img class="hero-logo" src="BGGC.jpeg" alt="BGGC — Beyond Global Group of Companies">
     <h1 class="hero-h1">One Family. Four Worlds.</h1>
     <p class="hero-sub">Beyond Global Group of Companies</p>
     <div class="hero-ctas">
