@@ -474,7 +474,7 @@ footer {
   max-width:1280px; margin:0 auto;
   display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px;
 }
-.footer-brand-name { font-size:28px; font-weight:800; color:var(--magenta); margin-bottom:14px; }
+.footer-logo { height:56px; width:auto; object-fit:contain; margin-bottom:14px; display:block; }
 .footer-brand-desc { font-size:14px; color:rgba(255,255,255,.6); line-height:1.8; max-width:300px; }
 .footer-col-title { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:18px; }
 .footer-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
@@ -484,8 +484,13 @@ footer {
 .footer-bottom {
   max-width:1280px; margin:0 auto; padding-top:28px;
   border-top:1px solid rgba(255,255,255,.1);
-  text-align:center; font-size:13px; color:rgba(255,255,255,.4);
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:13px; color:rgba(255,255,255,.4);
+  flex-wrap:wrap; gap:8px;
 }
+.footer-powered { font-size:13px; color:rgba(255,255,255,.4); }
+.footer-powered a { color:var(--magenta); text-decoration:none; font-weight:600; }
+.footer-powered a:hover { text-decoration:underline; }
 
 /* ═══════════════════════════════
    RESPONSIVE
@@ -830,7 +835,7 @@ footer {
 <footer id="footer">
   <div class="footer-inner">
     <div>
-      <div class="footer-brand-name">BGGC</div>
+      <img src="BGGC.jpeg" alt="BGGC Logo" class="footer-logo">
       <p class="footer-brand-desc">Beyond Global Group of Companies — a family of businesses committed to excellence, from the table to the wardrobe to your front door.</p>
     </div>
     <div>
@@ -858,7 +863,8 @@ footer {
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; 2026 Beyond Global Group of Companies. All rights reserved.
+    <span>&copy; 2026 Beyond Global Group of Companies. All rights reserved.</span>
+    <span class="footer-powered">Powered by <a href="https://dotxlabs.com" target="_blank" rel="noopener noreferrer">DOTxLabs</a></span>
   </div>
 </footer>
 
