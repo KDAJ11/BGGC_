@@ -790,7 +790,8 @@ html {
   <div class="shop-top-bar">
     <button class="shop-tab active" onclick="document.getElementById('fashion').scrollIntoView({behavior:'smooth'})">Fashion</button>
     <button class="shop-tab" onclick="document.getElementById('restaurant').scrollIntoView({behavior:'smooth'})">Restaurant</button>
-    <button class="shop-tab" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'})">Event</button>
+    <button class="shop-tab" onclick="document.getElementById('grocery').scrollIntoView({behavior:'smooth'})">Groceries</button>
+    <button class="shop-tab" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'})">Events</button>
   </div>
 
   <!-- Shop body -->
@@ -1546,6 +1547,17 @@ document.addEventListener('keydown', function(e) {
     if (el) sectionObserver.observe(el);
   });
 
+  // ── 1b. Desktop nav smooth scroll ──
+  navLinks.forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var href = a.getAttribute('href');
+      if (!href || href.charAt(0) !== '#') return;
+      e.preventDefault();
+      var targetEl = document.getElementById(href.slice(1));
+      if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
   // ── 2. Dot click handlers ──
   dotBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -1615,11 +1627,12 @@ document.addEventListener('keydown', function(e) {
   document.getElementById('mobile-drawer-close').addEventListener('click', closeMobileDrawer);
   document.getElementById('mobile-drawer-overlay').addEventListener('click', closeMobileDrawer);
   document.querySelectorAll('#mobile-drawer-links a').forEach(function(a) {
-    a.addEventListener('click', function() {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
       closeMobileDrawer();
       var targetId = a.getAttribute('href').replace('#', '');
       var targetEl = document.getElementById(targetId);
-      if (targetEl) setTimeout(function() { targetEl.scrollIntoView({ behavior: 'smooth' }); }, 50);
+      if (targetEl) setTimeout(function() { targetEl.scrollIntoView({ behavior: 'smooth' }); }, 420);
     });
   });
 
