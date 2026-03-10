@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BGGC — Beyond Global Group of Companies</title>
-  <meta name="description" content="Beyond Global Group of Companies — Fashion, Restaurant, Groceries, and Events under one roof.">
+  <title>BGGC &#8212; Beyond Global Group of Companies</title>
+  <meta name="description" content="Beyond Global Group of Companies &#8212; Fashion, Restaurant, Groceries, and Events under one roof.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,27 +56,22 @@
 </div>
 
 <!-- ════════════════════════════════
-     SECTION 1 — CINEMATIC HERO
+     SECTION 1 — CINEMATIC CSS HERO
 ════════════════════════════════ -->
 <section id="hero">
-
-  <!-- TODO: replace src with video file when available -->
-  <video autoplay muted loop playsinline poster="BIACH.jpg" id="hero-video">
-  </video>
-
-  <div class="hero-overlay"></div>
+  <div class="hero-orb" aria-hidden="true"></div>
+  <div class="hero-noise" aria-hidden="true"></div>
 
   <div class="hero-content">
     <img src="BGGC.jpeg" alt="Beyond Global Group of Companies" class="hero-logo ux-animate">
     <h1 class="hero-headline ux-animate">One Family. Four Worlds.</h1>
-    <p class="hero-sub ux-animate">Fashion.&nbsp;&nbsp;&nbsp;Food.&nbsp;&nbsp;&nbsp;Groceries.&nbsp;&nbsp;&nbsp;Events.</p>
+    <p class="hero-sub ux-animate">Fashion &nbsp;&#183;&nbsp; Food &nbsp;&#183;&nbsp; Groceries &nbsp;&#183;&nbsp; Events</p>
     <a href="#brands" class="hero-cta ux-animate">Explore Our World &#x2193;</a>
   </div>
 
   <div class="scroll-indicator" aria-hidden="true">
     <div class="scroll-indicator-arrow"></div>
   </div>
-
 </section>
 
 <!-- ════════════════════════════════
@@ -84,7 +79,8 @@
 ════════════════════════════════ -->
 <section id="brands" class="ux-animate">
   <div class="brands-inner">
-    <h2 class="section-heading">Our Companies</h2>
+    <p class="section-eyebrow">Our Companies</p>
+    <h2 class="section-heading">Four Distinct Worlds</h2>
 
     <div class="brand-grid">
 
@@ -95,7 +91,7 @@
         <div class="card-content">
           <div>
             <h3 class="card-name">Fashion</h3>
-            <p class="card-desc">Elevate your wardrobe with African-inspired luxury wear.</p>
+            <p class="card-desc">Bold African-inspired fashion, delivered worldwide.</p>
           </div>
           <span class="card-enter">Enter <span class="card-arrow">&#x2192;</span></span>
         </div>
@@ -108,7 +104,7 @@
         <div class="card-content">
           <div>
             <h3 class="card-name">Restaurant</h3>
-            <p class="card-desc">Bold West African flavours crafted for the modern table.</p>
+            <p class="card-desc">Authentic West African cuisine, crafted with soul.</p>
           </div>
           <span class="card-enter">Enter <span class="card-arrow">&#x2192;</span></span>
         </div>
@@ -116,12 +112,12 @@
 
       <!-- Grocery -->
       <a href="grocery.html" class="brand-card" style="--accent: #1B4332">
-        <div class="card-bg" style="background-image: url('groceries-nigerian-ingredients-flatlay.jpeg')"></div>
+        <div class="card-bg" style="background-image: url('groceries-fresh-produce-market.jpg')"></div>
         <div class="card-overlay"></div>
         <div class="card-content">
           <div>
             <h3 class="card-name">Groceries</h3>
-            <p class="card-desc">Premium African pantry staples delivered to your door.</p>
+            <p class="card-desc">Fresh African &amp; international goods &#8212; coming soon.</p>
           </div>
           <span class="card-enter">Enter <span class="card-arrow">&#x2192;</span></span>
         </div>
@@ -134,7 +130,7 @@
         <div class="card-content">
           <div>
             <h3 class="card-name">Events</h3>
-            <p class="card-desc">Bespoke celebrations and cultural gatherings, curated for you.</p>
+            <p class="card-desc">Unforgettable experiences, masterfully curated.</p>
           </div>
           <span class="card-enter">Enter <span class="card-arrow">&#x2192;</span></span>
         </div>
@@ -145,7 +141,119 @@
 </section>
 
 <!-- ════════════════════════════════
-     SECTION 3 — ABOUT STRIP
+     SECTION 3 — BUSINESS PREVIEWS
+════════════════════════════════ -->
+
+<!-- 3A: Restaurant — image left, content right -->
+<section id="preview-restaurant" class="preview-section preview-restaurant ux-animate">
+  <div class="preview-inner">
+
+    <div class="preview-image">
+      <img src="BIACH.jpg" alt="Beyond Imagination African Cuisine">
+    </div>
+
+    <div class="preview-content">
+      <span class="preview-label">Beyond Imagination African Cuisine</span>
+      <h2 class="preview-heading">Bold Flavours. Soulful Roots.</h2>
+
+      <ul class="preview-pills">
+        <li>&#x1F35B; Jollof Rice, Pepper Soup, Pounded Yam &amp; more</li>
+        <li>&#x1F389; Special &amp; party orders welcome</li>
+        <li>&#x1F4CD; Mississauga, ON &#8212; Pickup available</li>
+      </ul>
+
+      <div class="preview-callout">
+        <span class="callout-emoji">&#x1F389;</span>
+        <div>
+          <strong>Order Direct &amp; Save 15%</strong>
+          <p>Skip the apps &#8212; call us directly and pay by e-Transfer at pickup</p>
+          <a href="tel:+14372697467" class="preview-cta-primary">Call to Order &nbsp;&#183;&nbsp; +1 (437) 269-7467</a>
+        </div>
+      </div>
+
+      <a href="restaurant.html" class="preview-cta-secondary">View Full Menu &#x2192;</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3B: Fashion — content left, image right (flipped) -->
+<section id="preview-fashion" class="preview-section preview-fashion preview-flipped ux-animate">
+  <div class="preview-inner">
+
+    <div class="preview-content">
+      <span class="preview-label">Beyond Limits Global</span>
+      <h2 class="preview-heading">Wear Beyond Your Limits.</h2>
+
+      <ul class="preview-values">
+        <li>&#x2726; African-inspired designs, globally delivered</li>
+        <li>&#x2726; Ankara prints, jewellery &amp; statement pieces</li>
+        <li>&#x2726; New arrivals dropping regularly</li>
+      </ul>
+
+      <a href="fashion.html" class="preview-cta-secondary">Shop the Collection &#x2192;</a>
+    </div>
+
+    <div class="preview-image">
+      <img src="Hero.jpg" alt="Beyond Limits Global Fashion">
+    </div>
+
+  </div>
+</section>
+
+<!-- 3C: Grocery — centered full-width -->
+<section id="preview-grocery" class="preview-grocery ux-animate">
+  <div class="preview-centered-inner">
+    <span class="coming-soon-badge">Coming Soon</span>
+    <h2 class="preview-heading">Fresh Goods. Delivered.</h2>
+    <p class="preview-subtext">Your one-stop shop for fresh African and international groceries &#8212; launching soon in the GTA.</p>
+
+    <div class="grocery-teasers">
+      <div class="teaser-item">&#x1F33F; Fresh Produce</div>
+      <div class="teaser-item">&#x1F30D; International Goods</div>
+      <div class="teaser-item">&#x1F69A; Home Delivery</div>
+    </div>
+
+    <a href="grocery.html" class="preview-cta-secondary">Learn More &#x2192;</a>
+  </div>
+</section>
+
+<!-- 3D: Events — image left, content right -->
+<section id="preview-events" class="preview-section preview-events ux-animate">
+  <div class="preview-inner">
+
+    <div class="preview-image">
+      <img src="events.jpg" alt="BGGC Events">
+    </div>
+
+    <div class="preview-content">
+      <span class="preview-label">BGGC Events</span>
+      <h2 class="preview-heading">Moments That Last Forever.</h2>
+
+      <div class="preview-stats">
+        <div class="stat-item">
+          <strong>500+</strong>
+          <span>Events Hosted</span>
+        </div>
+        <div class="stat-item">
+          <strong>10+</strong>
+          <span>Years Experience</span>
+        </div>
+        <div class="stat-item">
+          <strong>5&#x2605;</strong>
+          <span>Client Rating</span>
+        </div>
+      </div>
+
+      <p class="preview-body">Weddings, birthdays, corporate events, cultural celebrations &#8212; we handle every detail.</p>
+      <a href="events.html" class="preview-cta-secondary">Plan Your Event &#x2192;</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     SECTION 4 — ABOUT STRIP
 ════════════════════════════════ -->
 <section id="about" class="ux-animate">
   <div class="about-inner">
@@ -159,7 +267,7 @@
 </section>
 
 <!-- ════════════════════════════════
-     SECTION 4 — FOOTER
+     SECTION 5 — FOOTER
 ════════════════════════════════ -->
 <footer>
   <div class="footer-inner">
@@ -201,14 +309,12 @@
 <button id="back-to-top" aria-label="Back to top">&#x2191;</button>
 
 <script>
-  /* ══ Nav: transparent over hero, solid dark when scrolled away ══ */
+  /* ══ Nav: transparent over hero, solid dark when scrolled ══ */
   const nav  = document.getElementById('site-nav');
   const hero = document.getElementById('hero');
 
   const heroObserver = new IntersectionObserver(
-    ([entry]) => {
-      nav.classList.toggle('nav-transparent', entry.isIntersecting);
-    },
+    ([entry]) => nav.classList.toggle('nav-transparent', entry.isIntersecting),
     { threshold: 0.1 }
   );
   heroObserver.observe(hero);
@@ -237,18 +343,16 @@
   document.getElementById('mobile-drawer-overlay').addEventListener('click', closeDrawer);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-  /* ══ Hero CTA — smooth scroll to brand cards ══ */
+  /* ══ Hero CTA smooth scroll ══ */
   document.querySelector('.hero-cta').addEventListener('click', e => {
     e.preventDefault();
     document.getElementById('brands').scrollIntoView({ behavior: 'smooth' });
   });
 
-  /* ══ Section entrance animations ══ */
+  /* ══ Section entrance animations (fade-up, ≤600ms) ══ */
   const animObserver = new IntersectionObserver(
-    entries => entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('ux-visible');
-    }),
-    { threshold: 0.1 }
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('ux-visible'); }),
+    { threshold: 0.08 }
   );
   document.querySelectorAll('.ux-animate').forEach(el => animObserver.observe(el));
 </script>
