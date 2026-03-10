@@ -22,14 +22,14 @@
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-body { font-family:'Inter',sans-serif; background:var(--white); color:var(--body-txt); overflow-x:hidden; font-size:16px; }
+body { font-family:'Inter',sans-serif; background:var(--white); color:var(--body-txt); overflow-x:hidden; font-size:16px; padding-top:64px; }
 a { text-decoration:none; }
 
 /* ═══════════════════════════════
    GLOBAL NAV
 ═══════════════════════════════ */
 nav {
-  position:sticky; top:0; left:0; right:0; z-index:1000;
+  position:fixed; top:0; left:0; right:0; z-index:1000;
   background:var(--white); border-bottom:1px solid var(--border);
   padding:0 40px; height:64px;
   display:flex; align-items:center; justify-content:space-between;
@@ -536,9 +536,172 @@ footer {
   .events-stats { grid-template-columns:1fr 1fr; }
   .grocery-gallery { grid-template-columns:1fr 1fr; }
 }
+
+/* ═══════════════════════════════
+   UX ENHANCEMENTS
+═══════════════════════════════ */
+
+/* ── 1. Scroll offset for all sections (fixed nav) ── */
+#home, #fashion, #restaurant, #grocery, #events {
+  scroll-margin-top:64px;
+}
+
+/* ── 1. Active nav link highlight ── */
+.nav-links a.nav-active {
+  color:var(--magenta);
+  position:relative;
+}
+.nav-links a.nav-active::after {
+  content:''; position:absolute; bottom:-4px; left:0; right:0;
+  height:2px; background:var(--magenta); border-radius:2px;
+}
+
+/* ── 2. Scroll Progress Dots ── */
+#scroll-dots {
+  position:fixed; right:18px; top:50%; transform:translateY(-50%);
+  z-index:900; display:flex; flex-direction:column; gap:14px;
+  list-style:none; padding:0; margin:0;
+}
+.scroll-dot {
+  width:10px; height:10px; border-radius:50%; padding:0;
+  background:rgba(255,255,255,.15);
+  border:2px solid rgba(255,255,255,.6);
+  box-shadow:0 0 0 1.5px rgba(0,0,0,.35);
+  cursor:pointer; transition:all .3s ease;
+}
+.scroll-dot.active {
+  background:#FFD700; border-color:#FFD700;
+  transform:scale(1.5); box-shadow:0 0 8px rgba(255,215,0,.6);
+}
+.scroll-dot:hover:not(.active) {
+  background:rgba(255,215,0,.45); transform:scale(1.25);
+}
+@media (max-width:768px) { #scroll-dots { display:none; } }
+
+/* ── 3. Back to Top Button ── */
+#back-to-top {
+  position:fixed; bottom:88px; right:18px; z-index:900;
+  width:46px; height:46px; border-radius:50%;
+  background:#FFD700; color:#111; border:none;
+  font-size:20px; font-weight:800; line-height:1;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 16px rgba(255,215,0,.45);
+  opacity:0; pointer-events:none;
+  transition:opacity .3s, transform .3s;
+  transform:translateY(14px);
+}
+#back-to-top.visible { opacity:1; pointer-events:all; transform:translateY(0); }
+#back-to-top:hover { background:#e6c400; transform:translateY(-3px) !important; }
+@media (max-width:768px) { #back-to-top { bottom:72px; right:14px; width:42px; height:42px; font-size:18px; } }
+
+/* ── 4. Section Entrance Animations ── */
+@keyframes ux-fade-up {
+  from { opacity:0; transform:translateY(32px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.ux-animate { opacity:0; }
+.ux-animate.ux-visible {
+  animation:ux-fade-up .55s ease both;
+}
+@media (prefers-reduced-motion:reduce) {
+  .ux-animate, .ux-animate.ux-visible {
+    animation:none !important; opacity:1 !important; transform:none !important;
+  }
+}
+
+/* ── 5. Sticky Restaurant CTA Bar ── */
+#rest-cta-bar {
+  position:fixed; bottom:0; left:0; right:0; z-index:800;
+  background:#0d0d0d; border-top:1px solid rgba(255,215,0,.25);
+  padding:10px 20px;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  flex-wrap:wrap;
+  transform:translateY(100%);
+  transition:transform .38s cubic-bezier(.16,1,.3,1);
+}
+#rest-cta-bar.visible { transform:translateY(0); }
+.cta-bar-btn {
+  padding:9px 22px; border-radius:50px; font-size:13px; font-weight:700;
+  border:none; cursor:pointer; transition:all .2s;
+  text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  font-family:'Inter',sans-serif;
+}
+.cta-bar-uber    { background:#06C167; color:#fff; }
+.cta-bar-uber:hover { background:#04a355; transform:translateY(-1px); }
+.cta-bar-doordash { background:#FF3008; color:#fff; }
+.cta-bar-doordash:hover { background:#dd2700; transform:translateY(-1px); }
+.cta-bar-direct  { background:#FFD700; color:#111; }
+.cta-bar-direct:hover { background:#e6c400; transform:translateY(-1px); }
+@media (max-width:480px) {
+  .cta-bar-btn { padding:8px 14px; font-size:12px; }
+}
+
+/* ── 6. Scroll Snap ── */
+html {
+  scroll-snap-type:y mandatory;
+  scroll-padding-top:64px;
+}
+#home, #fashion, #restaurant, #grocery, #events, footer {
+  scroll-snap-align:start;
+}
+
+/* ── 7. Mobile Drawer ── */
+.mobile-menu { display:none !important; }
+#mobile-drawer {
+  position:fixed; inset:0; z-index:2000; pointer-events:none;
+}
+#mobile-drawer-overlay {
+  position:absolute; inset:0; background:rgba(0,0,0,.6);
+  opacity:0; transition:opacity .35s;
+}
+#mobile-drawer-panel {
+  position:absolute; top:0; right:0; bottom:0;
+  width:min(300px,88vw); background:#111;
+  display:flex; flex-direction:column;
+  padding:24px 28px 40px;
+  transform:translateX(105%);
+  transition:transform .38s cubic-bezier(.16,1,.3,1);
+  overflow-y:auto;
+}
+#mobile-drawer.open { pointer-events:all; }
+#mobile-drawer.open #mobile-drawer-overlay { opacity:1; }
+#mobile-drawer.open #mobile-drawer-panel { transform:translateX(0); }
+#mobile-drawer-close {
+  align-self:flex-end; background:none; border:none;
+  color:rgba(255,255,255,.6); font-size:28px; cursor:pointer;
+  line-height:1; padding:0; margin-bottom:20px;
+  transition:color .2s;
+}
+#mobile-drawer-close:hover { color:#fff; }
+#mobile-drawer-logo {
+  height:44px; width:auto; object-fit:contain;
+  margin-bottom:32px; display:block;
+}
+#mobile-drawer-links { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; }
+#mobile-drawer-links a {
+  font-size:19px; font-weight:700; color:rgba(255,255,255,.8);
+  padding:15px 0; display:block;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transition:color .2s;
+}
+#mobile-drawer-links a:last-child { border-bottom:none; }
+#mobile-drawer-links a:hover { color:#FFD700; }
+
+/* ── 8. Page Scroll Progress Bar ── */
+#ux-progress {
+  position:fixed; top:0; left:0; right:0; z-index:2001;
+  height:3px; background:#FFD700;
+  transform-origin:left center;
+  transform:scaleX(0);
+  transition:transform .08s linear;
+  pointer-events:none;
+}
 </style>
 </head>
 <body>
+
+<!-- ── 8. Scroll Progress Bar ── -->
+<div id="ux-progress"></div>
 
 <!-- ═══════ GLOBAL NAV ═══════ -->
 <nav>
@@ -559,13 +722,23 @@ footer {
   </button>
 </nav>
 
-<!-- Mobile menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#home" onclick="closeMobileMenu()">Home</a>
-  <a href="#fashion" onclick="closeMobileMenu()">Fashion</a>
-  <a href="#restaurant" onclick="closeMobileMenu()">Restaurant</a>
-  <a href="#grocery" onclick="closeMobileMenu()">Groceries</a>
-  <a href="#events" onclick="closeMobileMenu()">Events</a>
+<!-- Mobile menu (legacy, hidden by CSS) -->
+<div class="mobile-menu" id="mobileMenu"></div>
+
+<!-- ── 7. Mobile Drawer ── -->
+<div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div id="mobile-drawer-overlay"></div>
+  <div id="mobile-drawer-panel">
+    <button id="mobile-drawer-close" aria-label="Close menu">&#x2715;</button>
+    <img id="mobile-drawer-logo" src="BGGC.jpeg" alt="BGGC">
+    <ul id="mobile-drawer-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#fashion">Fashion</a></li>
+      <li><a href="#restaurant">Restaurant</a></li>
+      <li><a href="#grocery">Groceries</a></li>
+      <li><a href="#events">Events</a></li>
+    </ul>
+  </div>
 </div>
 
 <!-- ═══════ HERO (#home) ═══════ -->
@@ -867,6 +1040,30 @@ footer {
     <span class="footer-powered">Powered by <a href="https://dotxlabs.com" target="_blank" rel="noopener noreferrer">DOTxLabs</a></span>
   </div>
 </footer>
+
+<!-- ── 2. Scroll Dots ── -->
+<ul id="scroll-dots" aria-label="Section navigation">
+  <li><button class="scroll-dot active" data-target="home"       title="Home"       aria-label="Go to Home"></button></li>
+  <li><button class="scroll-dot"        data-target="fashion"    title="Fashion"    aria-label="Go to Fashion"></button></li>
+  <li><button class="scroll-dot"        data-target="restaurant" title="Restaurant" aria-label="Go to Restaurant"></button></li>
+  <li><button class="scroll-dot"        data-target="grocery"    title="Groceries"  aria-label="Go to Groceries"></button></li>
+  <li><button class="scroll-dot"        data-target="events"     title="Events"     aria-label="Go to Events"></button></li>
+</ul>
+
+<!-- ── 3. Back to Top ── -->
+<button id="back-to-top" aria-label="Back to top">&#8593;</button>
+
+<!-- ── 5. Restaurant CTA Bar ── -->
+<div id="rest-cta-bar" role="complementary" aria-label="Order options">
+  <a class="cta-bar-btn cta-bar-uber"
+     href="https://www.ubereats.com/store-browse-uuid/eda0b1ff-ae0c-5fe2-b3d4-d16f2f03b7f9?diningMode=DELIVERY"
+     target="_blank" rel="noopener noreferrer">Uber Eats</a>
+  <a class="cta-bar-btn cta-bar-doordash"
+     href="https://www.doordash.com/en-CA/store/beyond-imagination-african-cuisine-mississauga-38214347/87155546/"
+     target="_blank" rel="noopener noreferrer">DoorDash</a>
+  <a class="cta-bar-btn cta-bar-direct"
+     href="tel:+14372697467">&#128222; Order Direct &amp; Save 15%</a>
+</div>
 
 <!-- ═══════ PRODUCT MODAL (lightbox) ═══════ -->
 <div class="product-modal" id="productModal" onclick="handleModalClick(event)">
@@ -1305,8 +1502,139 @@ function initiateCheckout(productIndex) {
 }
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeProductModal();
+  if (e.key === 'Escape') {
+    closeProductModal();
+    closeMobileDrawer();
+  }
 });
+
+// ════════════ UX ENHANCEMENTS ════════════
+(function() {
+  var SECTION_IDS = ['home','fashion','restaurant','grocery','events'];
+
+  // ── 1 & 2. Active nav + dots via Intersection Observer ──
+  var navLinks  = document.querySelectorAll('.nav-links a');
+  var dotBtns   = document.querySelectorAll('.scroll-dot');
+  var restCta   = document.getElementById('rest-cta-bar');
+  var activeSection = 'home';
+
+  function setActive(id) {
+    if (id === activeSection) return;
+    activeSection = id;
+    navLinks.forEach(function(a) {
+      a.classList.toggle('nav-active', a.getAttribute('href') === '#' + id);
+    });
+    dotBtns.forEach(function(d) {
+      d.classList.toggle('active', d.dataset.target === id);
+    });
+    if (restCta) restCta.classList.toggle('visible', id === 'restaurant');
+  }
+
+  var sectionObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+  SECTION_IDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
+  });
+
+  // ── 2. Dot click handlers ──
+  dotBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = document.getElementById(btn.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // ── 3. Back to Top ──
+  var btt      = document.getElementById('back-to-top');
+  var heroEl   = document.getElementById('home');
+  btt.addEventListener('click', function() {
+    heroEl.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // ── 4. Section entrance animations ──
+  // Apply .ux-animate to key content elements in non-home sections
+  var animTargets = [
+    '#fashion .shop-body',
+    '#fashion .shop-top-bar',
+    '#restaurant .rest-hero-inner',
+    '#restaurant .rest-promo',
+    '#restaurant .rest-body .menu-cat-title',
+    '#grocery .grocery-badge',
+    '#grocery .grocery-h1',
+    '#grocery .grocery-sub',
+    '#grocery .grocery-gallery',
+    '#events .events-headline',
+    '#events .events-sub',
+    '#events .events-stats',
+    '#events .event-form-wrap'
+  ];
+  animTargets.forEach(function(sel, i) {
+    var el = document.querySelector(sel);
+    if (!el) return;
+    el.classList.add('ux-animate');
+    el.style.animationDelay = (i % 3 * 90) + 'ms';
+  });
+
+  var animObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('ux-visible');
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
+
+  document.querySelectorAll('.ux-animate').forEach(function(el) {
+    animObserver.observe(el);
+  });
+
+  // ── 7. Mobile Drawer ──
+  var drawer = document.getElementById('mobile-drawer');
+
+  function openMobileDrawer() {
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileDrawer() {
+    drawer.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  window.closeMobileDrawer = closeMobileDrawer;
+
+  document.getElementById('navHamburger').addEventListener('click', openMobileDrawer);
+  document.getElementById('mobile-drawer-close').addEventListener('click', closeMobileDrawer);
+  document.getElementById('mobile-drawer-overlay').addEventListener('click', closeMobileDrawer);
+  document.querySelectorAll('#mobile-drawer-links a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      closeMobileDrawer();
+      var targetId = a.getAttribute('href').replace('#', '');
+      var targetEl = document.getElementById(targetId);
+      if (targetEl) setTimeout(function() { targetEl.scrollIntoView({ behavior: 'smooth' }); }, 50);
+    });
+  });
+
+  // ── 8. Scroll progress bar + back-to-top visibility ──
+  var progressBar = document.getElementById('ux-progress');
+
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+    var pct  = docH > 0 ? scrollTop / docH : 0;
+    progressBar.style.transform = 'scaleX(' + pct + ')';
+
+    var heroBottom = (heroEl.offsetTop + heroEl.offsetHeight) - 100;
+    btt.classList.toggle('visible', scrollTop > heroBottom);
+  }, { passive: true });
+
+})();
+
+// Stub out old mobile menu function to prevent conflicts
+function closeMobileMenu() {}
 </script>
 </body>
 </html>
